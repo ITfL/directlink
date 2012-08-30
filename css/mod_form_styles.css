@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+
+.content_pane, .folder_name, .files.pane, .file_name {
+	margin: -1px;
+	padding-left: 5px;
+}
+
+.dl_resource_image {
+	margin-right: 5px;
+}
+
+.dl_folder {
+	width: 16px;
+	height: 16px;
+	float: left;
+}
+
+.dl_folder_closed {
+	background-image: url(../pix/icons/folder_closed.png);
+}
+
+.dl_folder_opened {
+	background-image: url(../pix/icons/folder.png);
+}
+
+
+.content_pane {
+	margin-left: 20px !important;
+}
+
+.folder_name {
+	padding-top: 2px;
+	cursor:pointer;
+}
+
+.files_pane {
+	margin: 1px 1px 1px -3px;
+}
+
+.file_name {
+	padding-top: 2px;
+	cursor:pointer;
+}
+
+.resource_selected {
+	background-color: rgb(213, 229, 158);
+}
+
+.sub_resource_selected {
+	background-color: rgb(234, 242, 207);
+}
