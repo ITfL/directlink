@@ -12,6 +12,10 @@ $token = optional_param('token','', PARAM_RAW);
 $cm			= get_coursemodule_from_id('directlink', $id, 0, false, MUST_EXIST);
 $course		= $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 $directlink = $DB->get_record('directlink', array('id' => $cm->instance), '*', MUST_EXIST);
+$connection = $DB->get_record('directlink_connections', array('id' => $directlink->connection_id), '*', MUST_EXIST);
+
+$directlink_config = $DB->get_record('config', array('name' => 'directlink_mount_point'));
+$directlink_mount_point = $directlink_config->value;
 
 require_login($course, true, $cm);
 $context = get_context_instance(CONTEXT_MODULE, $cm->id);
@@ -86,19 +90,27 @@ HTML;
 	return $html_code;	
 }
 
-$ffc = $directlink->ffc;
+/**
+ * The next 5 lines fix the Problem where the share path is not complete
+ **/
+$directlink->path_to_file  = decrypt($directlink->path_to_file);
+// $path_to_share = $directlink_mount_point . '/' . $connection->user_share;
+// if(strpos($directlink->path_to_file, $directlink_mount_point) !== 0) {
+// 		$directlink->path_to_file = $path_to_share . $directlink->path_to_file;
+// }
 
+
+$ffc = $directlink->ffc;
 if($ffc == 'file') {
-	$path  = decrypt($directlink->path_to_file);
 	
-	add_to_log($course->id, 'directlink', 'view', "view.php?id={$cm->id}", "{$directlink->ffc}: $path", $id, $USER->id);
 	
-	$token = urlencode(encrypt($path, true));
+	add_to_log($course->id, 'directlink', 'view', "view.php?id={$cm->id}", "{$directlink->ffc}: $directlink->path_to_file", $id, $USER->id);
+	
+	$token = urlencode(encrypt($directlink->path_to_file, true));
 	header('Location: '.$CFG->wwwroot.'/mod/directlink/file.php?id='.$directlink->course.'&instance='.$directlink->id.'&token='. $token);
 }
 else if($ffc == 'folder' || $ffc == 'content') {
-	$directlink->path_to_file = decrypt($directlink->path_to_file);
-	
+
 	add_to_log($course->id, 'directlink', 'view', "view.php?id={$cm->id}", "{$directlink->ffc}: {$directlink->path_to_file}", $id, $USER->id);
 	
 	if($token != '') {

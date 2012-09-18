@@ -83,11 +83,19 @@ class mod_directlink_mod_form extends moodleform_mod {
 		
 		$default_values['path_to_file'] = decrypt($default_values['path_to_file']);
 		
-		
+
+
+
+		$path_to_share = $directlink_mount_point . '/' . $default_values['user_share'];
+		if(strpos($default_values['path_to_file'], $directlink_mount_point) !== 0) {
+			$default_values['path_to_file'] = $path_to_share . $default_values['path_to_file'];
+		}
+
 		
 		$default_values['path_to_file'] = str_replace($directlink_mount_point . '/', '', $default_values['path_to_file']);
 		
-		
+
+
 		/*
 		 * If share contains two directorynames we append the first one to the server because it needs to be removed
 		 * file path starts at second.

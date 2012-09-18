@@ -5,6 +5,21 @@ require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/locallib.php');
 
 
-echo get_string('file_choose_error', 'directlink') . "<br />";
-echo get_string('connection_properties', 'directlink') . "<br />";
-echo get_string('js_confirm', 'directlink') . "<br />";
+$result = $DB->get_records_sql('SELECT id, course, path_to_file FROM {directlink} ORDER BY course ASC');
+
+foreach($result as $row) {
+	$path = decrypt($row->path_to_file);
+	if($path == '') {
+		continue;
+	}
+	$color = '';
+	if(strpos($path, '/mnt/directlink') !== 0) {
+		$color = 'red';
+		if($row->course == 18) {
+			echo "needs update ... ";
+			$crypt = encrypt($path);
+			$DB->execute("UPDATE {directlink} SET path_to_file = '{$crypt}' WHERE id = '{$row->id}'");
+		}
+	}
+	echo "{$row->course} - {$row->id} - <font color='{$color}'>{$path}</font><br />";
+}
