@@ -135,9 +135,29 @@ else if($ffc == 'folder' || $ffc == 'content') {
 	
 	$dir_tree = array ();
 	
-	$get_directory_ok = get_directory($path, $dir_tree, $ignore);
+	//--- fix
+	$connection_id = $directlink->connection_id;
+	$connection = $DB->get_record('directlink_connections',array('id'=> $connection_id ));
+			
+			$share = $connection->user_share;
+			$domain = $connection->domain;
 	
-	if($get_directory_ok && is_dir_empty($dir_tree)) {
+	
+	$general_connection_id = has_more_general_share($share, $domain);
+	if($general_connection_id != false){
+		
+		$update_connection = $DB->get_record('directlink',array('connection_id'=> $general_connection_id));
+		$general_directlink_connection = $DB->get_record('directlink_connections',array('id'=> $general_connection_id));
+		$general_path = decrypt($update_connection->path_to_file);
+		
+		$more_general_path = construct_mountpoint($general_directlink_connection->server, $general_directlink_connection->domain, $general_directlink_connection->user_share);
+	}
+	
+	//--- fix end
+	
+	$get_directory_ok = get_directory($more_general_path, $dir_tree, $ignore);
+	
+	if($get_directory_ok && !is_dir_empty($dir_tree)) {	//<-- hier liegt der Fehler
 		
 		if(!share_already_mounted($directlink->path_to_file)) {
 			/**
@@ -155,7 +175,6 @@ else if($ffc == 'folder' || $ffc == 'content') {
 			mount_share_to_fs($server, $share, $domain, $share_user, $share_user_pwd);
 		}
 	}
-	
 	$get_directory_ok = get_directory($path, $dir_tree, $ignore);
 	
 	if($get_directory_ok) {
