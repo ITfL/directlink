@@ -309,9 +309,9 @@ function mount_share_to_fs($smbclient_server, $share, $domain, $user, $pwd){
 			$result = $DB->get_records_sql('SELECT id, server, domain, user_share FROM {directlink_connections} WHERE id = ?', array($tmp_share_id));
 			$result = $result[$tmp_share_id];
 			$mountpoint = construct_mountpoint($result->server, $result->domain, $result->user_share);
+
 			umount($mountpoint);
 		}
-		
 		$mount_msg = mount($smbclient_server, $share, $domain, $user, $pwd);
 		return $mount_msg;
 	}
@@ -325,6 +325,8 @@ function mount_share_to_fs($smbclient_server, $share, $domain, $user, $pwd){
 	$user = $result->share_user;
 	$pwd = decrypt($result->share_user_pwd);
 	
+
+
 	$mount_msg = mount($server, $share, $domain, $user, $pwd);
 	return $mount_msg;
 }

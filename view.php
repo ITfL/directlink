@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * @package    mod
+ * @subpackage directlink
+ * @copyright  2012 onwards Michael Hamatschek and Hans-Christian Sperker {@link http://www.uni-bamberg.de/itfl-service}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/locallib.php');
@@ -130,7 +135,7 @@ else if($ffc == 'folder' || $ffc == 'content') {
 		echo $OUTPUT->box_end();
 	}
 	
-	// Muss aus der default db kommen
+	// comes from default db
 	$path = substr($directlink->path_to_file, 0, -1);
 	
 	$dir_tree = array ();
@@ -142,7 +147,7 @@ else if($ffc == 'folder' || $ffc == 'content') {
 			$share = $connection->user_share;
 			$domain = $connection->domain;
 	
-	
+	$more_general_path = $path;
 	$general_connection_id = has_more_general_share($share, $domain);
 	if($general_connection_id != false){
 		
@@ -156,8 +161,9 @@ else if($ffc == 'folder' || $ffc == 'content') {
 	//--- fix end
 	
 	$get_directory_ok = get_directory($more_general_path, $dir_tree, $ignore);
+	// $get_directory_ok = true;
 	
-	if($get_directory_ok && !is_dir_empty($dir_tree)) {	//<-- hier liegt der Fehler
+	if(!$get_directory_ok && !is_dir_empty($dir_tree)) {
 		
 		if(!share_already_mounted($directlink->path_to_file)) {
 			/**
