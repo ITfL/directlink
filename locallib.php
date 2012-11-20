@@ -292,7 +292,7 @@ function mount($smbclient_server, $share, $domain, $user, $pwd) {
 	}
 }
 
-function mount_share_to_fs($smbclient_server, $share, $domain, $user, $pwd){
+	function mount_share_to_fs($smbclient_server, $share, $domain, $user, $pwd){
 	global $DB;
 	
 	$mount_msg = '';
@@ -373,6 +373,15 @@ function umount_share($server, $share, $domain){
 function share_already_mounted($mountpoint){
 	//blank after mountpoint is needed, do not remove
 	$check_mount = shell_exec("mount | grep '{$mountpoint} '");
+
+	//additional fix || englischer Begriff
+	$ls = shell_exec("ls $mountpoint");
+	if(preg_match('/Keine Berechtigung/', $ls) || preg_match('/Permission Denied/', $ls)){
+		$umount_string = "sudo umount -l {$mountpoint} 2>&1";
+		$umount_fail = shell_exec($umount_string);
+		$check_mount = '';
+	}
+	//additional fix end
 
 	if($check_mount == '') {
 		return false;
