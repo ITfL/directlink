@@ -42,13 +42,17 @@ foreach ($directlink_connection as $key => $value) {
 	$operation_style = "cursor:pointer;";
 	$delete_action = "delete_connection({$value->id});";
 	$edit_action = "edit_connection({$value->id})";
-	if(get_reference_count($value->id) > 0) {
+	// check if there exist references to this share
+	if(get_reference_count($value->id) != 0) {
 		$connection_is_used = true;	
-		$operation_style = "opacity : 0.4; filter: alpha(opacity=40);";
+		$operation_style_delete = "opacity : 0.4; filter: alpha(opacity=40);";
 		$delete_action = "alert(\"". get_string('change_connection_error', 'directlink') ."\");";
-		$edit_action = "alert(\"". get_string('change_connection_error', 'directlink') ."\");";
+		// $edit_action = "alert(\"". get_string('change_connection_error', 'directlink') ."\");";
+	}else{
+		// do not change css style of delete button
+		$operation_style_delete = "cursor:pointer;";
 	}
-	
+		
 	$data = array();
 	$data[] = $value->id;
 	$course_reference = " ";
@@ -67,7 +71,7 @@ foreach ($directlink_connection as $key => $value) {
 	$data[] = $value->user;
 	$data[] = $value->type . $course_reference;
 	$data[] = $value->server;
-	$data[] = "<img src='../theme/image.php?theme={$CFG->theme}&image=t/edit&rev={$CFG->themerev}' onClick='{$edit_action}' style='{$operation_style}'><img src='../theme/image.php?theme={$CFG->theme}&image=t/delete&rev={$CFG->themerev}' onClick='{$delete_action}' style='{$operation_style}'>";
+	$data[] = "<img src='../theme/image.php?theme={$CFG->theme}&image=t/edit&rev={$CFG->themerev}' onClick='{$edit_action}' style='{$operation_style}'><img src='../theme/image.php?theme={$CFG->theme}&image=t/delete&rev={$CFG->themerev}' onClick='{$delete_action}' style='{$operation_style_delete}'>";
 	$connections_response['aaData'][] = $data;
 }
 

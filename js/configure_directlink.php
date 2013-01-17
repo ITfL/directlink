@@ -128,7 +128,7 @@ $.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallba
 };
 
 function send_changes() {
-	var cid = $('#edit_connection_id').val();
+ 	var cid = $('#edit_connection_id').val();
 	var name = $('#edit_connection_name').val();
 	var server = $('#edit_connection_server').val();
 	var domain = $('#edit_connection_domain').val();
@@ -164,7 +164,7 @@ function send_changes() {
 				message('problem', '<?php echo get_string('manage_changes_problem', 'directlink'); ?>');
 			}
 		}
-	});
+	}); 
 }
 
 /**
@@ -185,6 +185,7 @@ function delete_connection(connection_id) {
 }
 
 function edit_connection(connection_id) {
+disable_fields_edit_connection();
 	$('#edit_connection').slideDown();
 	$.ajax({
 		url: '../mod/directlink/connection_info.php',
@@ -641,6 +642,18 @@ function toggle_classes(jq_element, classes_array) {
 	}
 	jq_element.removeClass(classes_array[frumpy_old_variable_name]);
 	jq_element.addClass(classes_array[fancy_new_variable_name]);
+}
+
+
+/**
+ * disable form fields for editing connection
+ */
+function disable_fields_edit_connection() {
+	$('#edit_connection_server').attr('disabled', 'disabled');
+	$('#edit_connection_domain').attr('disabled', 'disabled');
+	$('#edit_connection_share').attr('disabled', 'disabled');
+	$('#edit_connection_user').attr('disabled', 'disabled');
+	$('input:[name=share_access_type]').attr('disabled', 'disabled');
 }
 
 /**

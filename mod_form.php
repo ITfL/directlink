@@ -372,7 +372,7 @@ class mod_directlink_mod_form extends moodleform_mod {
 							</div>
 							<div class="felement fradio">
 								<span>
-									<input name="edit_connection_share_access_type" value="course" type="radio" id="connection_course">
+									<input name="edit_connection_share_access_type" value="course" type="radio" id="connection_course" disabled>
 									<label for="connection_course">
 										{$course_share_desc}
 									</label>
