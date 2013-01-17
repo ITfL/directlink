@@ -64,8 +64,8 @@ $string['domain_desc'] = 'Standard-Domäne der Umgebung.';
 $string['default_user_name'] = 'Standard-Nutzer';
 $string['default_user_name_desc'] = 'Standard-Nutzer für die smb-Verbindung.';
 
-$string['Standard_user_pass'] = 'Standard-Passwort';
-$string['Standard_user_pass_desc'] = 'Passwort für den Standard-Nutzer.';
+$string['default_user_pass'] = 'Standard-Passwort';
+$string['default_user_pass_desc'] = 'Passwort für den Standard-Nutzer.';
 
 $string['filechoose_ignore'] = 'Dateiauswahl';
 $string['filechoose_ignore_desc'] = 'Diese Dateitypen werden in der Dateiauswahl des Netzlaufwerks nicht angezeigt.';
