@@ -332,7 +332,7 @@ function mount($smbclient_server, $share, $domain, $user, $pwd) {
 }
 
 function umount($mountpoint) {
-	$umount_string = "sudo umount -f {$mountpoint} 2>&1";
+	$umount_string = "sudo umount -l {$mountpoint} 2>&1";
 	$umounts = shell_exec($umount_string);
 	
 	if(preg_match('/(error|not)/', $umounts)) {

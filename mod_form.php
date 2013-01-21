@@ -356,7 +356,7 @@ class mod_directlink_mod_form extends moodleform_mod {
 							</div>
 							<div class="felement fradio">
 								<span>
-									<input name="edit_connection_share_access_type" value="private" type="radio" id="connection_private" checked="checked">
+									<input name="edit_connection_share_access_type" value="private" type="radio" id="connection_private" checked="checked" disabled>
 									<label for="connection_private">
 										{$private_share_desc}
 									</label>
