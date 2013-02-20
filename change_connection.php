@@ -40,12 +40,7 @@ if($result['valid']) {
 	$entry = new stdClass();
 	$entry->id = $cid;
 	$entry->connection_name = $name;
-	$entry->server = $server;
-	$entry->domain = $domain;
-	$entry->user_share = $share;
-	$entry->share_user = $user;
 	$entry->share_user_pwd = $password;
-	$entry->share_access_type = $type;
 	
 	$DB->update_record('directlink_connections', $entry);
 }

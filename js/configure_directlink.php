@@ -128,7 +128,7 @@ $.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallba
 };
 
 function send_changes() {
-	var cid = $('#edit_connection_id').val();
+ 	var cid = $('#edit_connection_id').val();
 	var name = $('#edit_connection_name').val();
 	var server = $('#edit_connection_server').val();
 	var domain = $('#edit_connection_domain').val();
@@ -164,7 +164,7 @@ function send_changes() {
 				message('problem', '<?php echo get_string('manage_changes_problem', 'directlink'); ?>');
 			}
 		}
-	});
+	}); 
 }
 
 /**
@@ -185,6 +185,7 @@ function delete_connection(connection_id) {
 }
 
 function edit_connection(connection_id) {
+disable_fields_edit_connection();
 	$('#edit_connection').slideDown();
 	$.ajax({
 		url: '../mod/directlink/connection_info.php',
@@ -373,9 +374,20 @@ function send_discard_credentials() {
  */
 function clear_all_fields() {
 	resource = '';
+
+	/**
+	 * matches if external hosts are forbidden
+	 */
+	if($('input[name=deny_external_hosts]').val() == "0"){
+		$('#id_server').removeAttr('disabled');
+		$('#id_domain').removeAttr('disabled');
+		$('#id_server').val('');
+		$('#id_domain').val('');
+	}
+        				
+
 	$('#id_connection_name').removeAttr('disabled');
-	$('#id_server').removeAttr('disabled');
-	$('#id_domain').removeAttr('disabled');
+
 	$('#id_user_share').removeAttr('disabled');
 	$('#id_share_user').removeAttr('disabled');
 	$('#id_share_user_pwd').removeAttr('disabled');
@@ -383,8 +395,6 @@ function clear_all_fields() {
 	$('input:[name=share_access_type]').removeAttr('disabled');
 	
 	$('#id_connection_name').val('');
-	$('#id_server').val('');
-	$('#id_domain').val('');
 	$('#id_user_share').val('');
 	$('#id_share_user').val('');
 	$('#id_share_user_pwd').val('');
@@ -641,6 +651,18 @@ function toggle_classes(jq_element, classes_array) {
 	}
 	jq_element.removeClass(classes_array[frumpy_old_variable_name]);
 	jq_element.addClass(classes_array[fancy_new_variable_name]);
+}
+
+
+/**
+ * disable form fields for editing connection
+ */
+function disable_fields_edit_connection() {
+	$('#edit_connection_server').attr('disabled', 'disabled');
+	$('#edit_connection_domain').attr('disabled', 'disabled');
+	$('#edit_connection_share').attr('disabled', 'disabled');
+	$('#edit_connection_user').attr('disabled', 'disabled');
+	$('input:[name=share_access_type]').attr('disabled', 'disabled');
 }
 
 /**

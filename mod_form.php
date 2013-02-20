@@ -356,7 +356,7 @@ class mod_directlink_mod_form extends moodleform_mod {
 							</div>
 							<div class="felement fradio">
 								<span>
-									<input name="edit_connection_share_access_type" value="private" type="radio" id="connection_private" checked="checked">
+									<input name="edit_connection_share_access_type" value="private" type="radio" id="connection_private" checked="checked" disabled>
 									<label for="connection_private">
 										{$private_share_desc}
 									</label>
@@ -372,7 +372,7 @@ class mod_directlink_mod_form extends moodleform_mod {
 							</div>
 							<div class="felement fradio">
 								<span>
-									<input name="edit_connection_share_access_type" value="course" type="radio" id="connection_course">
+									<input name="edit_connection_share_access_type" value="course" type="radio" id="connection_course" disabled>
 									<label for="connection_course">
 										{$course_share_desc}
 									</label>
@@ -648,7 +648,9 @@ HTML;
 //         $mform->addHelpButton('intro', 'description', 'directlink');
         
         
-        $mform->addElement('editor', 'introeditor', get_string('description', 'directlink'), null, array('height'=>'640px', 'maxfiles'=>EDITOR_UNLIMITED_FILES, 'noclean'=>true, 'context'=>$this->context));
+        // $mform->addElement('editor', 'introeditor', get_string('description', 'directlink'), null, array('height'=>'640px', 'maxfiles'=>EDITOR_UNLIMITED_FILES, 'noclean'=>true, 'context'=>$this->context));
+        // $mform->addElement('editor', 'introeditor', get_string('description', 'directlink'));
+        $mform->addElement('editor', 'entry', get_string('description', 'directlink'), null, array('maxfiles' => EDITOR_UNLIMITED_FILES));
         $mform->setType('introeditor', PARAM_RAW); // no XSS prevention here, users must be trusted
         if ($directlink_desc->value) {
         	$mform->addRule('introeditor', null, 'required');

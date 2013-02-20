@@ -202,7 +202,7 @@ HTML;
 		$html_code = get_html_folder_statement($path_parts[1], $dir_tree[$path_parts[1]], $start_path); 
 		$pattern = '/(\<span class="folder_name_text"\>)(.+)(\<\/span\>)/';
 		if(!(isset($token) && $token != '')){
-		$replacement = "$1{$directlink->name}$3";
+		$replacement = "$1 {$directlink->name} $3";
 		$html_code = preg_replace($pattern, $replacement, $html_code, 1);
 		}
 		echo $html_code;
