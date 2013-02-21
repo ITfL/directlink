@@ -35,15 +35,15 @@ defined('MOODLE_INTERNAL') || die();
  */
 
 $string['connection_properties'] = 'Connection Properties'; 
-$string['modulename'] = 'Fileserver'; //frontend chooser name
-$string['modulenameplural'] = 'Fileservers';
-$string['modulename_help'] = 'Use the Fileserver module for integration of files and folders out of a share. Please contact your moodle support for requirements.';
+$string['modulename'] = 'Network-Drive'; //frontend chooser name
+$string['modulenameplural'] = 'Network-Drives';
+$string['modulename_help'] = 'Use the Network-Drive module for integration of files and folders out of a share. Please contact your moodle support for requirements.';
 $string['directlinkfieldset'] = 'Custom example fieldset';
-$string['directlinkname'] = 'Fileserver name';
+$string['directlinkname'] = 'Network-Drive name';
 $string['directlinkname_help'] = 'This is the content of the help tooltip associated with the DirectLinkname field. Markdown syntax is supported.';
-$string['directlink'] = 'Fileserver';
-$string['pluginadministration'] = 'Fileserver Administration';
-$string['pluginname'] = 'Fileserver';
+$string['directlink'] = 'Network-Drive';
+$string['pluginadministration'] = 'Network-Drive Administration';
+$string['pluginname'] = 'Network-Drive';
 /**
  * admin strings
  */
@@ -70,13 +70,13 @@ $string['deny_external_hosts'] = 'Deny external hosts';
 $string['deny_external_hosts_desc'] = 'If this option is selected, only shares within the given server are allowed!';
 
 $string['filechoose_ignore'] = 'Filechoose';
-$string['filechoose_ignore_desc'] = 'This files are not shown within the Fileserver filechooser.';
+$string['filechoose_ignore_desc'] = 'This files are not shown within the Network-Drive filechooser.';
 
 $string['desc_required'] = 'Description required';
-$string['desc_required_desc'] = 'Defines if description of Fileserver is required.';
+$string['desc_required_desc'] = 'Defines if description of Network-Drive is required.';
 
 $string['admin_mail'] = 'Contact mail';
-$string['admin_mail_desc'] = 'Mail adress for Fileserver / moodle support.';
+$string['admin_mail_desc'] = 'Mail adress for Network-Drive / moodle support.';
 
 /**
  * plugin strings
@@ -102,7 +102,7 @@ $string['connection_name_help'] = 'Connection name displayed in connection manag
 $string['name'] = 'Name';
 
 $string['description'] = 'Description';
-$string['description_help'] = 'Description for certain Fileserver. Description is only shown when file or folder is opened in a separate window';
+$string['description_help'] = 'Description for certain Network-Drive. Description is only shown when file or folder is opened in a separate window';
 
 $string['server'] = 'Server';
 
@@ -196,7 +196,7 @@ $string['folder_doesnt_exist'] = 'Folder doesn\'t exist. </br> Please contact yo
 
 $string['file_choose_error'] = 'Please choose file/folder.';
 
-$string['link_not_found'] = 'Fileserver not found.';
+$string['link_not_found'] = 'Network-Drive not found.';
 
 $string['no_permission'] ='No permission to access file!';
 
