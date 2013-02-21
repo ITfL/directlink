@@ -1,6 +1,8 @@
 **Welcome to DirectLink! Willkommen bei DirectLink!**
 
 (DirectLink is a Moodle activity module called Network-Drive / DirectLink ist eine Moodle Aktivität die Netzlaufwerk genannt wird)
+We renamed the activity module from DirectLink to Network-Drive in Moodle, for a better understanding of the supplied functionality.
+Um ein besseres Verständnis der angebotenen Funktionalität zu ermöglichen, wurde das Plugin in Moodle von DirectLink in Netzlaufwerk umbenannt.
 
 #General
 
