@@ -117,6 +117,8 @@ $string['share_user'] = 'User';
 
 $string['share_user_pwd'] = 'Share user password';
 
+$string['user_name'] = 'First and last name';
+
 $string['private_share'] = 'Private share';
 $string['private_share_desc'] = 'Only you can see this share in connection manager.';
 
@@ -153,6 +155,9 @@ $string['js_new_connection'] = 'New Connection';
 
 $string['js_manage_connections'] = 'Manage Connections';
 $string['js_manage_share_type'] = 'Connection Type';
+$string['js_manage_share_type_public_this'] = '(this course)';
+$string['js_manage_share_type_public_other'] = '(other course)';
+$string['js_manage_share_type_private'] = 'private share';
 $string['js_manage_actions'] = 'Actions';
 $string['js_manage_save'] = 'Update Connection';
 $string['js_manage_discard'] = 'Discard Changes';

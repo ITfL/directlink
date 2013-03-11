@@ -117,6 +117,8 @@ $string['share_user'] = 'Nutzerkennung';
 
 $string['share_user_pwd'] = 'Passwort';
 
+$string['user_name'] = 'Vor- und Nachname';
+
 $string['private_share'] = 'Private Freigabe';
 $string['private_share_desc'] = 'Nur Sie können die angelegte Freigabe im Tab <b>Verbindungen verwalten</b> und im Menü <b>Vorhandene Verbindungen</b> sehen.';
 
@@ -155,6 +157,9 @@ $string['js_new_connection'] = 'Neue Verbindung';
 
 $string['js_manage_connections'] = 'Verbindungen verwalten';
 $string['js_manage_share_type'] = 'Verbindungstyp';
+$string['js_manage_share_type_public_this'] = '(dieser Kurs)';
+$string['js_manage_share_type_public_other'] = '(anderer Kurs)';
+$string['js_manage_share_type_private'] = 'private Freigabe';
 $string['js_manage_actions'] = 'Optionen';
 $string['js_manage_save'] = 'Änderungen speichern';
 $string['js_manage_discard'] = 'Verwerfe Änderungen';

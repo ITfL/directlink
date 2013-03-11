@@ -22,7 +22,6 @@ if (! $course = $DB->get_record('course', array('id' => $id))) {
 require_course_login($course);
 
 if($json) {
-	
 	$directlink_info = $DB->get_records_sql('select dlc.id, dlc.connection_name as name, dlc.server, dlc.domain, dlc.user_share as share, dlc.share_user as user, dlc.share_access_type as type from {directlink_connections} as dlc where dlc.id = ? and dlc.connection_owner = ?', array($cid, $USER->id));
 	sort($directlink_info); // sort to fix arrays indices
 	$directlink_info = $directlink_info[0];
@@ -30,13 +29,29 @@ if($json) {
 	exit;
 }
 
+/*
+* sql statement for connection management
+* ATTENTION get_records_sql
+* all the get_records_XX() family of functions inside Moodle always returns one associative array, i.e. one array of records where the key is the first field in the SELECT clause.
+* So, if you get two records with the same value in the 1st field the functions will "group" them, returning the last one in the real recordset.
+* --> https://moodle.org/mod/forum/discuss.php?d=57544
+*/
+$directlink_info = $DB->get_records_sql('select dl.id, dl.name, cs.shortname, usr.firstname, usr.lastname, usr.email, dl.course from {directlink} as dl, {course} as cs, {user} as usr, {directlink_connections} as dlc where dl.connection_id = ? and cs.id = dl.course and usr.id = dl.directlink_user_id and dlc.id = dl.connection_id and dlc.connection_owner = ?', array($cid, $USER->id));
 
-$directlink_info = $DB->get_records_sql('select dl.name, cs.id, cs.shortname, usr.firstname, usr.lastname, usr.email from {directlink} as dl, {course} as cs, {user} as usr, {directlink_connections} as dlc where dl.connection_id = ? and dl.course = ? and cs.id = dl.course and usr.id = dl.directlink_user_id and dlc.id = dl.connection_id and dlc.connection_owner = ?', array($cid, $id, $USER->id));
+// echo "<pre>";
+// foreach ($directlink_info as $record) {
+// 	print_r($record);
+// }
+// echo "<pre>";
+// print_r($directlink_info);
+// echo "</pre> <br/> HULULU <br/>";
 sort($directlink_info); // sort to clean array id's which are otherwise the id's of the db fields
+// echo "<pre>";
+// print_r($directlink_info);
 
 $table_contents = "";
 foreach ($directlink_info as $info) {
-	$table_contents .= "<tr><td>{$info->name}</td><td><u><a href='view.php?id={$info->id}' target='_blank'>{$info->shortname}</a></u></td><td><u><a href='mailto:{$info->email}' target='_blank'>{$info->firstname} {$info->lastname}</a></u></td></tr>";
+	$table_contents .= "<tr><td>{$info->name}</td><td><u><a href='view.php?id={$info->course}' target='_blank'>{$info->shortname}</a></u></td><td><u><a href='mailto:{$info->email}' target='_blank'>{$info->firstname} {$info->lastname}</a></u></td></tr>";
 }
 if($table_contents == "") {
 	$no_references = get_string('manage_no_reference','directlink');
@@ -44,7 +59,7 @@ if($table_contents == "") {
 }
 
 $connection_info = get_string('manage_connection_info', 'directlink');
-$user = get_string('share_user', 'directlink');
+$user = get_string('user_name', 'directlink');
 $course_name = get_string('manage_connection_course', 'directlink');
 $directlink_name = get_string('connection_name', 'directlink');
 

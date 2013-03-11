@@ -6,6 +6,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/*
+* visualisation of connection manager
+*/
+
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once 'locallib.php';
@@ -56,20 +60,24 @@ foreach ($directlink_connection as $key => $value) {
 	$data = array();
 	$data[] = $value->id;
 	$course_reference = " ";
+	$share_type = "";
 	if($value->type == "private") {
+		$share_type = get_string('private_share', 'directlink');
 		$data[] = "<img src='../mod/directlink/pix/icons/user.png' style='padding-top: 2px;'>";
 	}
 	else if($value->course == $id) {
+		$share_type = get_string('course_share', 'directlink');
 		$data[] = "<img src='../mod/directlink/pix/icons/course_this.png' style='padding-top: 2px;'>";
-		$course_reference = " <i>(this)</i>";
+		$course_reference = "<i> " . get_string('js_manage_share_type_public_this', 'directlink'). "</i>";;
 	}
 	else {
+		$share_type = get_string('course_share', 'directlink');
 		$data[] = "<img src='../mod/directlink/pix/icons/course_other.png' style='padding-top: 2px;'>";
-		$course_reference = " <i>(other)</i>";
+		$course_reference = "<i> " . get_string('js_manage_share_type_public_other', 'directlink'). "</i>";
 	}
 	$data[] = $value->name;
 	$data[] = $value->user;
-	$data[] = $value->type . $course_reference;
+	$data[] = $share_type . $course_reference;
 	$data[] = $value->server;
 	$data[] = "<img src='../theme/image.php?theme={$CFG->theme}&image=t/edit&rev={$CFG->themerev}' onClick='{$edit_action}' style='{$operation_style}'><img src='../theme/image.php?theme={$CFG->theme}&image=t/delete&rev={$CFG->themerev}' onClick='{$delete_action}' style='{$operation_style_delete}'>";
 	$connections_response['aaData'][] = $data;
