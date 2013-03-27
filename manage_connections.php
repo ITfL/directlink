@@ -73,8 +73,8 @@ foreach ($directlink_connection as $key => $value) {
 	else {
 		$share_type = get_string('course_share', 'directlink');
 		$share_type = "<a href='view.php?id={$value->course}' target='_blank'>{$share_type}</a>";
-		$data[] = "<img src='../mod/directlink/pix/icons/course_other.png' style='padding-top: 2px;'>";
-		$course_reference = "<i> " . get_string('js_manage_share_type_public_other', 'directlink'). "</i>";
+		$data[] = "<img src='../mod/directlink/pix/icons/course_other.png' style='padding-top: 2px;'> ";
+		$course_reference = " <a href='view.php?id={$value->course}' target='_blank'><i>" .get_string('js_manage_share_type_public_other', 'directlink') . "</i></a>";
 	}
 	$data[] = $value->name;
 	$data[] = $value->user;
