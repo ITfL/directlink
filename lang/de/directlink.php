@@ -174,14 +174,18 @@ $string['manage_processing'] = 'Änderungen werden angewendet';
 $string['manage_changes_success'] = 'Änderungen erfolgreich.';
 $string['manage_changes_problem'] = 'Änderungen konnten nicht angewendet werden. </br> Entweder Kombination Nutzerkennung/Passwort falsch </br> oder Nutzer/in hat keine Zugriffsrechte auf die Freigabe.';
 
-//jquery adaption
+/*
+* jquery adaption - connection management
+*/
 
 $string['jq_manage_search'] = 'Suche:';
 $string['jq_manage_previous'] = 'Vorherige';
 $string['jq_manage_next'] = 'Nächste';
 $string['jq_show'] = 'Zeige _MENU_ Einträge';
 $string['jq_show_entries'] = 'Zeige _START_ bis _END_ von _TOTAL_ Verbindungen';
-
+$string['jq_show_no_entries'] = 'Keine Verbindungen vorhanden';
+$string['jq_no_entries'] = 'Es sind keine Verbindungen für ihren Nutzer verfügbar';
+$string['jq_show_filter_entries'] = 'gefiltert aus _MAX_ Einträgen';
 
 /**
  * errors

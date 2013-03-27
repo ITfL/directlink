@@ -172,15 +172,17 @@ $string['manage_processing'] = 'Processing changes';
 $string['manage_changes_success'] = 'Changes successful processed.';
 $string['manage_changes_problem'] = 'Could not apply changes.';
 
-//jquery adaption
-
+/*
+* jquery adaption - connection management
+*/
 $string['jq_manage_search'] = 'Search:';
 $string['jq_manage_previous'] = 'Previous';
 $string['jq_manage_next'] = 'Next';
 $string['jq_show'] = 'Show _MENU_ entries';
 $string['jq_show_entries'] = 'Show _START_ to _END_ of _TOTAL_ entries';
-
-
+$string['jq_show_no_entries'] = 'No entries available';
+$string['jq_no_entries'] = 'No connections available for your user';
+$string['jq_show_filter_entries'] = 'filtered from _MAX_ total entries';
 /**
  * errors
  */

@@ -30,9 +30,12 @@
  * Structure step to restore one directlink activity
  */
 class restore_directlink_activity_structure_step extends restore_activity_structure_step {
-		
+	
+	// initialize variables
 	private $old_course_id = 0;
 	var $newitemid ="-1";
+
+	//defines structure of the xml-file
     protected function define_structure() {
 
         $paths = array();
@@ -59,6 +62,7 @@ class restore_directlink_activity_structure_step extends restore_activity_struct
 		 * we need to change initial_course of the connection to be restored (set to newly created course) 
 		 */
 		if(($data->share_access_type == "course")){
+			//specific for COURSE shares
 			$data->initial_course = $this->get_courseid();
 			if(!$temp_is_in_new){
 				// course connection does not exist yet
@@ -69,19 +73,21 @@ class restore_directlink_activity_structure_step extends restore_activity_struct
 	        	$newitemid = $this->get_id_of_existing_connection($data);
 	        }
         }else if(($data->share_access_type == "private")){
+        	//specific for PRIVATE shares
 			if($temp_is_in_old || $temp_is_in_new){
 				// private connection already exists
         		$newitemid = $this->get_id_of_existing_private_connection($data);
-
 			} else {
 				// private connection does not exist yet
 				$data->initial_course = $this->get_courseid();
 				$newitemid = $DB->insert_record('directlink_connections', $data);
         	} 
 		}
+		// copy id and set connection mapping
 		$this->newitemid = $newitemid;
 		$this->set_mapping('directlink_connections', $oldid, $newitemid);
 	}
+
 
     protected function process_directlink($data) {
         global $DB;
@@ -92,7 +98,6 @@ class restore_directlink_activity_structure_step extends restore_activity_struct
         $data->timemodified = $this->apply_date_offset($data->timemodified);
 		
         $data->connection_id = $this->newitemid;
-        // $data->connection_id = $this->get_mappingid('directlink_connections', $data->connection_id);
         $newitemid2 = $DB->insert_record('directlink', $data);
         // immediately after inserting "activity" record, call this
         $this->apply_activity_instance($newitemid2);
@@ -122,7 +127,7 @@ class restore_directlink_activity_structure_step extends restore_activity_struct
 	}
 
 	/**
-	 * additional function for checking if connection is already in {directlink_connections}
+	 * additional function to catch the id of an existing COURSE connection {directlink_connections}
 	 * @param $data data object of connection
 	 */
 	protected function get_id_of_existing_connection($data) {
@@ -144,7 +149,7 @@ class restore_directlink_activity_structure_step extends restore_activity_struct
 	}
 
 	/**
-	 * additional function for checking if connection is already in {directlink_connections}
+	 * additional function to catch the id of an existing PRIVATEconnection {directlink_connections}
 	 * @param $data data object of connection
 	 */
 	protected function get_id_of_existing_private_connection($data) {
