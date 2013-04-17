@@ -30,77 +30,63 @@
  * Structure step to restore one directlink activity
  */
 class restore_directlink_activity_structure_step extends restore_activity_structure_step {
-	
-	// initialize variables
+		
 	private $old_course_id = 0;
-	var $newitemid ="-1";
-
-	//defines structure of the xml-file
+		
     protected function define_structure() {
 
         $paths = array();
-        $paths[] = new restore_path_element('directlink_connections', '/activity/directlink_connections');
-        $paths[] = new restore_path_element('directlink', '/activity/directlink_connections/directlink');
+        $paths[] = new restore_path_element('directlink', '/activity/directlink');
+        $paths[] = new restore_path_element('directlink_connection', '/activity/directlink/directlink_connection');
 
         // Return the paths wrapped into standard activity structure
         return $this->prepare_activity_structure($paths);
     }
-  
+
+
+    protected function process_directlink($data) {
+        global $DB;
+		
+        $data = (object)$data;
+
+        $this->old_course_id = $data->course;
+        $data->course = $this->get_courseid();
+        $data->timemodified = $this->apply_date_offset($data->timemodified);
+		
+		
+        // insert the directlink record
+        $newitemid = $DB->insert_record('directlink', $data);
+        // immediately after inserting "activity" record, call this
+        $this->apply_activity_instance($newitemid); 
+    }
+    
     //insert connections into db while restoring course 
-    protected function process_directlink_connections($data) {
+    protected function process_directlink_connection($data) {
         global $DB;
 
         $data = (object)$data;
-    	$oldid = $data->id;
-        // $is_in = $this->connection_already_in($data);
-        $temp_is_in_old = $this->connection_already_in($data);
-        $data->initial_course = $this->get_courseid();
-		$temp_is_in_new = $this->connection_already_in($data);
+        
+        $is_in = $this->connection_already_in($data);
         
 		/*
 		 * if copied directlink connection was created in source course and is a course share
 		 * we need to change initial_course of the connection to be restored (set to newly created course) 
 		 */
-		if(($data->share_access_type == "course")){
-			//specific for COURSE shares
+		 if(($data->initial_course == $this->old_course_id && $data->share_access_type == "course")){
+
 			$data->initial_course = $this->get_courseid();
-			if(!$temp_is_in_new){
-				// course connection does not exist yet
-				$data->initial_course = $this->get_courseid();
+			
+			// check if new connection already created while restoring course connections
+			$temp_is_in = $this->connection_already_in($data);
+			
+			if(!$temp_is_in){
+				// insert the directlink record
 				$newitemid = $DB->insert_record('directlink_connections', $data);
-	        } else {
-	        	// course connection already exists
-	        	$newitemid = $this->get_id_of_existing_connection($data);
-	        }
-        }else if(($data->share_access_type == "private")){
-        	//specific for PRIVATE shares
-			if($temp_is_in_old || $temp_is_in_new){
-				// private connection already exists
-        		$newitemid = $this->get_id_of_existing_private_connection($data);
-			} else {
-				// private connection does not exist yet
-				$data->initial_course = $this->get_courseid();
-				$newitemid = $DB->insert_record('directlink_connections', $data);
-        	} 
+			}
+		}else if(!$is_in){
+			// insert the directlink record
+			$newitemid = $DB->insert_record('directlink_connections', $data);
 		}
-		// copy id and set connection mapping
-		$this->newitemid = $newitemid;
-		$this->set_mapping('directlink_connections', $oldid, $newitemid);
-	}
-
-
-    protected function process_directlink($data) {
-        global $DB;
-        $data = (object)$data;
-        $oldid = $data->id;
-
-        $data->course = $this->get_courseid();
-        $data->timemodified = $this->apply_date_offset($data->timemodified);
-		
-        $data->connection_id = $this->newitemid;
-        $newitemid2 = $DB->insert_record('directlink', $data);
-        // immediately after inserting "activity" record, call this
-        $this->apply_activity_instance($newitemid2);
     }
 
 	/**
@@ -124,49 +110,6 @@ class restore_directlink_activity_structure_step extends restore_activity_struct
 		
 		return $is_in;
 	
-	}
-
-	/**
-	 * additional function to catch the id of an existing COURSE connection {directlink_connections}
-	 * @param $data data object of connection
-	 */
-	protected function get_id_of_existing_connection($data) {
-		global $DB;
-		
-		$data = (object)$data;
-		
-		$is_in_id = $DB->get_record_sql("SELECT id FROM {directlink_connections} WHERE
-				initial_course = ? AND
-				connection_name = ? AND
-				connection_owner = ? AND
-				server = ? AND
-				domain = ? AND
-				user_share = ? AND
-				share_user = ? AND	
-				share_access_type = ?", array($data->initial_course, $data->connection_name, $data->connection_owner, $data->server, $data->domain, $data->user_share, $data->share_user, $data->share_access_type));
-		
-		return $is_in_id->id;
-	}
-
-	/**
-	 * additional function to catch the id of an existing PRIVATEconnection {directlink_connections}
-	 * @param $data data object of connection
-	 */
-	protected function get_id_of_existing_private_connection($data) {
-		global $DB;
-		
-		$data = (object)$data;
-		
-		$is_in_id = $DB->get_record_sql("SELECT id FROM {directlink_connections} WHERE
-				connection_name = ? AND
-				connection_owner = ? AND
-				server = ? AND
-				domain = ? AND
-				user_share = ? AND
-				share_user = ? AND	
-				share_access_type = ?", array($data->connection_name, $data->connection_owner, $data->server, $data->domain, $data->user_share, $data->share_user, $data->share_access_type));
-		
-		return $is_in_id->id;
 	}
 
     protected function after_execute() {

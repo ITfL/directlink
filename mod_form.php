@@ -649,8 +649,8 @@ HTML;
         
         
         // $mform->addElement('editor', 'introeditor', get_string('description', 'directlink'), null, array('height'=>'640px', 'maxfiles'=>EDITOR_UNLIMITED_FILES, 'noclean'=>true, 'context'=>$this->context));
-        // $mform->addElement('editor', 'introeditor', get_string('description', 'directlink'));
-        $mform->addElement('editor', 'entry', get_string('description', 'directlink'), null, array('maxfiles' => EDITOR_UNLIMITED_FILES));
+       	$mform->addElement('editor', 'introeditor', get_string('description', 'directlink'));
+       	// $mform->addElement('editor', 'entry', get_string('description', 'directlink'), null, array('maxfiles' => EDITOR_UNLIMITED_FILES));
         $mform->setType('introeditor', PARAM_RAW); // no XSS prevention here, users must be trusted
         if ($directlink_desc->value) {
         	$mform->addRule('introeditor', null, 'required');

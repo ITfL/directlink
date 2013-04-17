@@ -327,8 +327,8 @@ function directlink_update_instance(stdClass $directlink, mod_directlink_mod_for
     $directlink_entry->directlink_user_id = $directlink->directlink_user_id;
     $directlink_entry->name = $directlink->name;
     $directlink_entry->intro = $directlink->introeditor['text'];
-    $directlink_entry->introformat = 1;
-    // $directlink_entry->introformat = $directlink->introeditor['format'];
+    // $directlink_entry->introformat = 1;
+    $directlink_entry->introformat = $directlink->introeditor['format'];
     $directlink_entry->ffc = $directlink->ffc;
     $directlink_entry->path_to_file = $directlink->path_to_file;
     $directlink_entry->timemodified = $directlink->timemodified;
