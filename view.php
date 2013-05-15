@@ -39,13 +39,22 @@ function get_html_folder_statement($foldername, $folder, $path){
 	
 	foreach ($folder['file'] as $index => $value) {
 		$name = $index;
+		//for mouseover of complete filename 
+		$titlename = $index;
+
 		$size = $value['size'];
 		$changed = $value['changed'];
 		
 		$fileextension  = array_reverse(explode(".", $name));
 		
 		$token = urlencode(encrypt($path.$name, true));
-		
+
+		// shorten long filenames and extend with "..."
+		if(strlen($name) >= 64){
+			$longfilename = substr($name, 0 , 64);
+			$longfilename = $longfilename."...";
+			$name = $longfilename;
+		}
 		$file_section_tmp = <<<HTML
 			<div class='file_name'>
 			
@@ -53,7 +62,7 @@ function get_html_folder_statement($foldername, $folder, $path){
 				<div style="float: left;">
 					<img src="get_ressource_icon.php?extension={$fileextension[0]}" class="activityicon dl_ressource_image" alt="File">
 					<span class="file_name_text">
-						<a href="file.php?id={$cm->course}&instance={$cm->instance}&token={$token}">{$name}</a>
+						<a title="{$titlename}" href="file.php?id={$cm->course}&instance={$cm->instance}&token={$token}">{$name}</a>
 					</span>
 				</div>
 				<div align="right" style="float: right; width: 250px;">{$changed}</div>
