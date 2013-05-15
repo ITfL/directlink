@@ -164,12 +164,24 @@ function directlink_check_credentials($smbclient_server, $share, $smbclient_doma
 	$smbclient_connect_result = preg_replace('/\s{2,}/', ' ', $smbclient_connect_result);
 	
 	$smbclient_regex_pattern = '/.*(fail|FAIL|DENIED).*/';
+
 	$smbclient_check_credentials = preg_match($smbclient_regex_pattern, $smbclient_connect_result);
 	if($smbclient_check_credentials == 0){
 		return array("valid" => true, "msg" => $smbclient_connect_result, "connect_string" => $smbclient_connect_string_print);
 	}else{
-		return array("valid" => false, "msg" => $smbclient_connect_result, "connect_string" => $smbclient_connect_string_print, "debug" => $debug_msg);
+		// return array("valid" => false, "msg" => $smbclient_connect_result, "connect_string" => $smbclient_connect_string_print, "debug" => $debug_msg);
+		
+		if(preg_match('/session setup failed: NT_STATUS_LOGON_FAILURE.*/', $debug_msg)){
+			return array("valid" => false, "msg" => $smbclient_connect_result, "connect_string" => $smbclient_connect_string_print, "debug" => get_string('connection_error_user', 'directlink'));
+		}else if(preg_match('/tree connect failed: NT_STATUS_BAD_NETWORK_NAME.*/', $debug_msg)){
+			return array("valid" => false, "msg" => $smbclient_connect_result, "connect_string" => $smbclient_connect_string_print, "debug" => get_string('connection_bad_mountpoint', 'directlink'));
+		}else if(preg_match('/NT_STATUS_ACCESS_DENIED.*/', $debug_msg)){
+			return array("valid" => false, "msg" => $smbclient_connect_result, "connect_string" => $smbclient_connect_string_print, "debug" => get_string('connection_bad_mountpoint', 'directlink'));
+		}else{
+			return array("valid" => false, "msg" => $smbclient_connect_result, "connect_string" => $smbclient_connect_string_print, "debug" => $debug_msg);
+		}
 	}
+
 }
 /**
  * creates new dir for mountpoint
@@ -278,17 +290,23 @@ function mount($smbclient_server, $share, $domain, $user, $pwd) {
 			$smbclient_server = add_slashes($smbclient_server);
 			$server_path = $smbclient_server.$share;
 			$pwd = mask_password($pwd);
-			$mount_result = shell_exec("sudo mount -t cifs -o uid=www-data,ro,iocharset=utf8,username={$user},password={$pwd} {$server_path} {$mountpoint} 2>&1");
-	
-			if(preg_match('/error/', $mount_result)) {
-				return array("valid" => false, "msg" => $mount_result);
+			// $mount_result = shell_exec("sudo mount -t cifs -o uid=www-data,ro,iocharset=utf8,username={$user},password={$pwd} {$server_path} {$mountpoint} 2>&1");
+
+			if(preg_match('/^session \s+ setup \s+ failed:/', $mount_result)) {
+				return array("valid" => false, "msg" => "{$notification}");
 			}
-			return array("valid" => true, "msg" => "mount to {$mountpoint} successful");
+
+			if(preg_match('/error/', $mount_result)) {
+				return array("valid" => false, "msg" => "{$mount_result}");
+			}
+			$notification = get_string('mount_succesful_01', 'directlink').$mountpoint.get_string('mount_succesful_02', 'directlink');
+			return array("valid" => true, "msg" => "{$notification}");
 		}
 	
 	}
 	else {
-		return array("valid" => true, "msg" => "mount to {$mountpoint} successful");
+		$notification = get_string('mount_succesful_01', 'directlink').$mountpoint.get_string('mount_succesful_02', 'directlink');
+		return array("valid" => true, "msg" => "{$notification}");
 	}
 }
 
@@ -313,6 +331,7 @@ function mount($smbclient_server, $share, $domain, $user, $pwd) {
 			umount($mountpoint);
 		}
 		$mount_msg = mount($smbclient_server, $share, $domain, $user, $pwd);
+
 		return $mount_msg;
 	}
 	
@@ -328,6 +347,7 @@ function mount($smbclient_server, $share, $domain, $user, $pwd) {
 
 
 	$mount_msg = mount($server, $share, $domain, $user, $pwd);
+	
 	return $mount_msg;
 }
 

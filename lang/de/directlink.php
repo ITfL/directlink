@@ -184,6 +184,13 @@ $string['jq_show_entries'] = 'Zeige _START_ bis _END_ von _TOTAL_ Verbindungen';
 
 
 /**
+* notification
+**/
+
+$string['mount_succesful_01'] = 'Einbinden von Verzeichnis "';
+$string['mount_succesful_02'] = '" erfolgreich';
+
+/**
  * errors
  */
 
@@ -196,6 +203,8 @@ $string['immutable_field_share_user_changed'] = 'Achtung: Nicht-veränderbares F
 $string['connection_error_default_user'] = 'Standard-Nutzer kann sich nicht auf die angegebene Freigabe verbinden.</br> Bitte kontaktieren Sie ';
 
 $string['connection_error_user'] = 'Bitte überprüfen Sie die Nutzerdaten. </br> Entweder Kombination Nutzerkennung/Passwort falsch </br> oder Nutzer/in hat keine Zugriffsrechte auf die Freigabe. ';
+$string['connection_bad_mountpoint'] = 'Angegebene Freigabe existiert anscheinend nicht. Standard-Nutzer kann sich nicht auf die angegebene Freigabe verbinden.';
+$string['connection_bad_user'] = 'Nutzer hat keine Rechte für den Zugriff auf die angegebene Freigabe.';
 
 $string['file_doesnt_exist'] = 'Datei existiert nicht. </br> Bitte kontaktieren Sie die Kursleitung.';
 

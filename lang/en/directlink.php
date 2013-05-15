@@ -180,6 +180,12 @@ $string['jq_manage_next'] = 'Next';
 $string['jq_show'] = 'Show _MENU_ entries';
 $string['jq_show_entries'] = 'Show _START_ to _END_ of _TOTAL_ entries';
 
+/**
+* notification
+**/
+
+$string['mount_succesful_01'] = 'Mount of directory "';
+$string['mount_succesful_02'] = '" successful';
 
 /**
  * errors
@@ -194,6 +200,8 @@ $string['immutable_field_share_user_changed'] = 'Immutable field "User" was chan
 $string['connection_error_default_user'] = 'Default user can\'t connect to the certain share.</br> Please contact ';
 
 $string['connection_error_user'] = 'Given user can\'t connect to the certain share. </br> Please check credentials.';
+$string['connection_bad_mountpoint'] = 'Certain share may not exist or default user can\'t connect to the certain share.';
+$string['connection_bad_user'] = 'This user has no access to given share.';
 
 $string['file_doesnt_exist'] = 'File doesn\'t exist. </br> Please contact your course moderator.';
 
