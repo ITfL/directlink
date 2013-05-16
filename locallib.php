@@ -290,7 +290,7 @@ function mount($smbclient_server, $share, $domain, $user, $pwd) {
 			$smbclient_server = add_slashes($smbclient_server);
 			$server_path = $smbclient_server.$share;
 			$pwd = mask_password($pwd);
-			// $mount_result = shell_exec("sudo mount -t cifs -o uid=www-data,ro,iocharset=utf8,username={$user},password={$pwd} {$server_path} {$mountpoint} 2>&1");
+			$mount_result = shell_exec("sudo mount -t cifs -o uid=www-data,ro,iocharset=utf8,username={$user},password={$pwd} {$server_path} {$mountpoint} 2>&1");
 
 			if(preg_match('/^session \s+ setup \s+ failed:/', $mount_result)) {
 				return array("valid" => false, "msg" => "{$notification}");
