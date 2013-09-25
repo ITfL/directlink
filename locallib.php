@@ -310,7 +310,7 @@ function mount($smbclient_server, $share, $domain, $user, $pwd) {
 	}
 }
 
-	function mount_share_to_fs($smbclient_server, $share, $domain, $user, $pwd){
+function mount_share_to_fs($smbclient_server, $share, $domain, $user, $pwd){
 	global $DB;
 	
 	$mount_msg = '';
@@ -455,8 +455,7 @@ function is_dir_empty($array) {
  * @param integer bytes Size in bytes to convert
  * @return string
  */
-function bytesToSize($bytes, $precision = 2)
-{  
+function bytesToSize($bytes, $precision = 2){  
     $kilobyte = 1024;
     $megabyte = $kilobyte * 1024;
     $gigabyte = $megabyte * 1024;
@@ -720,8 +719,7 @@ function get_connections($course, $user) {
 	return $connections;
 }
 
-function connectoin_sort($a, $b)
-{
+function connectoin_sort($a, $b){
 	if($a->id == 0) { return -1; }
 	if($b->id == 0) { return 1; }
 	if($a->is_own && !$b->is_own) { return -1; }
