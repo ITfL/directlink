@@ -40,8 +40,8 @@ $(document).ready(function(){
 	$( "#tabs" ).tabs();
 	
 	
-	$('#connection_properties .fcontainer').appendTo('#new-connection');
-	$('#connection_properties').hide();
+	$('#id_connection_properties .fcontainer').appendTo('#new-connection');
+	$('#id_connection_properties').hide();
 	
 	if($('#id_share_user_pwdunmaskdiv').find('label').size()) {
 		$('#id_share_user_pwdunmaskdiv').find('label').each(function(index, element){if(index == 1){$(element).remove();}});
@@ -413,19 +413,21 @@ function clear_all_fields() {
 function tab_toggler(show) {
 	
 	if(show && element_visibility) {
+		$('#id_availabilityconditionsheader').show();
+		$('#id_modstandardelshdr').show();
 		$('#modstandardelshdr').show();
 		$('#linktype').show();
-		$('#general').show();
-		$('#choosefile').show();
+		$('#id_general').show();
+		$('#id_choosefile').show();
 	}
 	else {
 		if($('#modstandardelshdr').is(':visible')) {
 			element_visibility = true;
-			
-			$('#modstandardelshdr').hide();
+			$('#id_availabilityconditionsheader').hide();
+			$('#id_modstandardelshdr').hide();
 			$('#linktype').hide();
-			$('#general').hide();
-			$('#choosefile').hide();
+			$('#id_general').hide();
+			$('#id_choosefile').hide();
 		}
 	}
 }
@@ -434,10 +436,11 @@ function tab_toggler(show) {
  * Disable content not used right at the beginning
  */
 function disable_content(){
-	$('#modstandardelshdr').hide();
+	$('#id_availabilityconditionsheader').hide();
+	$('#id_modstandardelshdr').hide();
 	$('#linktype').hide();
-	$('#general').hide();
-	$('#choosefile').hide();
+	$('#id_general').hide();
+	$('#id_choosefile').hide();
 	$('input[name*="submit"]').each(function(index){
 		$(this).attr('disabled','disabled');
 	});
@@ -711,11 +714,11 @@ function credentials_checked(json) {
 			context: {resource: this.resource},
 			success: show_files
 		});	
-
-		$('#modstandardelshdr').show();
+		$('#id_availabilityconditionsheader').show();
+		$('#id_modstandardelshdr').show();
 		$('#linktype').show();
-		$('#choosefile').show();
-		$('#general').show();
+		$('#id_choosefile').show();
+		$('#id_general').show();
 		$('#discard_credentials').removeAttr('disabled');
 		
 		disable_fields();
