@@ -880,6 +880,7 @@ function do_checks($server, $share, $domain, $share_user, $share_user_pwd, $refe
 
 function mask_password($pwd) {
 	$pwd = str_replace('$', '\$', $pwd);
+	$pwd = str_replace('&', '\&', $pwd);
 	return $pwd;
 }
 
