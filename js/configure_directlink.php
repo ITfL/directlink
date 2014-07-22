@@ -410,6 +410,7 @@ function clear_all_fields() {
 	disable_content();
 }
 
+// called when tab in connection settings is clicked
 function tab_toggler(show) {
 	
 	if(show && element_visibility) {
@@ -421,14 +422,12 @@ function tab_toggler(show) {
 		$('#id_choosefile').show();
 	}
 	else {
-		if($('#modstandardelshdr').is(':visible')) {
-			element_visibility = true;
-			$('#id_availabilityconditionsheader').hide();
-			$('#id_modstandardelshdr').hide();
-			$('#linktype').hide();
-			$('#id_general').hide();
-			$('#id_choosefile').hide();
-		}
+		element_visibility = true;
+		$('#id_availabilityconditionsheader').hide();
+		$('#id_modstandardelshdr').hide();
+		$('#linktype').hide();
+		$('#id_general').hide();
+		$('#id_choosefile').hide();
 	}
 }
 

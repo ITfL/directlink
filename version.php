@@ -39,4 +39,3 @@ $module->cron     = 0;           // Period for cron to check this module (secs)
 
 $module->maturity = MATURITY_BETA;
 $module->release  = 'squabbling squid';
-
