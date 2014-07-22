@@ -29,6 +29,7 @@ To integrate the content of Windows shares into Moodle courses you can use the a
 
 * **Permissions:**	www-data has to be the owner of the directory, where the shares are mounted into at the Moodle server.
 * **Default-User:**	There must be a user with read permissions to all mounted shares. This user will establish, keep alive and restore the connection between the course and the certain share. Username and password of this (default) user are deposed in the activity module administration.
+* **Salt and Password:** The file config.php.changeme has to be edited: Replace the salt and password with custom hexadecimal values. Rename the file to config.php
 
 ###Administration settings
 
@@ -65,6 +66,7 @@ Mit dem Arbeitsmaterial Netzlaufwerk können Windows-Freigaben in einen Kurs int
 
 * **Rechte:**	www-data muss Besitzer des Verzeichnisses auf dem Moodle-Server sein, in den die Freigaben verfügbar gemacht (gemountet) werden.
 * **Default-User:**	Es muss einen Benutzer im Netzwerk geben, der lesend auf alle Windows-Freigaben zugreifen kann, um die Verbindung  zwischen dem jeweiligen Kurs und der Freigabe aufzubauen, aufrechtzuerhalten und wiederherzustellen. Benutzername und Passwort dieses Nutzers werden in den Einstellungen für das Netzlaufwerk in der Website-Administration in Moodle hinterlegt.
+* **Salt und Passwort:** Die Datei config.php.changeme muss angepass werden: Salt und Password sollten aus Sicherheitsgründen mit eigenen hexadezimalen Werten überschrieben werden. Außerdem muss die Datei in config.php umbenannt werden
 
 ###Einstellungen in der Administration
 

@@ -6,6 +6,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-// Insert other Values (numbers and uppercase letters) and change the name of this file to config.php
-$directlink_config['password'] = '11FE8337887D4E280417160E70219DAFF6DC3FCB4D578CA1FFD111FE465E2DA9';
-$directlink_config['salt'] = 'BC1821158172223F57AB8AE50DC5F2583C063337C1E14164B55B4F23068CEE48';
+// Insert hexadecimal values and change the name of this file to config.php
+$directlink_config['password'] = 'DC97EEFCDC78A0D57D48050FDE23CB60';
+$directlink_config['salt'] = '51B45E2F2466292E6F5203DADC906FB3';
