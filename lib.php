@@ -16,7 +16,6 @@ defined('MOODLE_INTERNAL') || die();
 // Moodle core API                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 
-
 require_once("$CFG->libdir/filelib.php");
 
 function  directlink_get_coursemodule_info($coursemodule) {

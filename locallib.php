@@ -527,7 +527,7 @@ function get_directory($path = '.', &$dir_tree, $ignore = '') {
 	return true;
 }
 
-function remove_dublicated_objects(&$array_to_clean, $array_supply, $fields_to_check) {
+function remove_duplicated_objects(&$array_to_clean, $array_supply, $fields_to_check) {
 	$clean_array = array();
 	
 	foreach ($array_to_clean as $entry_to_decide_on) {
@@ -611,7 +611,7 @@ function get_connections($course, $user) {
 			dlc.initial_course = ? AND
 			dlc.connection_owner = ?",  array($course, $user));
 	
-	remove_dublicated_objects($connections_own_dif_course_raw, $connections_own_this_course_raw, array('connection_name', 'server', 'domain', 'share_user', 'user_share'));
+	remove_duplicated_objects($connections_own_dif_course_raw, $connections_own_this_course_raw, array('connection_name', 'server', 'domain', 'share_user', 'user_share'));
 	
 	
 	$connections_someones_this_course_raw = $DB->get_records_sql("
