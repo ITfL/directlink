@@ -24,6 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once("lib.php");
 /**
  * get number of directlinks referencing a connection with id 
  */
