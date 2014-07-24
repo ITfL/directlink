@@ -250,8 +250,7 @@ function construct_mountpoint($server, $domain, $share) {
 	if(preg_match('/[a-zA-Z0-9]$/', $directlink_mount_point)) {
 		$directlink_mount_point = $directlink_mount_point . "/";
 	}
-	
-	$server = $server;
+
 	$server = str_replace("\\", "", $server);
 	$server = str_replace("/", "", $server);
 	
@@ -294,7 +293,7 @@ function mount($smbclient_server, $share, $domain, $user, $pwd) {
 			$mount_result = shell_exec("sudo mount -t cifs -o uid=www-data,ro,iocharset=utf8,username={$user},password={$pwd} {$server_path} {$mountpoint} 2>&1");
 
 			if(preg_match('/^session \s+ setup \s+ failed:/', $mount_result)) {
-				return array("valid" => false, "msg" => "{$notification}");
+				return array("valid" => false, "msg" => "{$mount_result}");
 			}
 
 			if(preg_match('/error/', $mount_result)) {
@@ -902,6 +901,7 @@ function encrypt($text, $weak=false) {
 
 function decrypt($crypt, $weak=false) {
 	include('config.php');
+
 	$key = $directlink_config['password'];
 	$cipher = MCRYPT_RIJNDAEL_128;
 	if(!$weak){
