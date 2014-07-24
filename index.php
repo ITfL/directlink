@@ -27,7 +27,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/// Replace directlink with the name of your module and remove this line
+// Creates a view for all directlink activities in a course when called with id GET parameter
 
 
 require('../../config.php');
