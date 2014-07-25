@@ -418,3 +418,37 @@ function directlink_supports($feature) {
 		default: return null;
 	}
 }
+
+function encrypt($text, $weak=false) {
+    include('config.php');
+    $key = $directlink_config['password'];
+    $cipher = MCRYPT_RIJNDAEL_128;
+    if(!$weak){
+        $salt = $directlink_config['salt'];
+        $text = $text . $salt;
+        $cipher = MCRYPT_RIJNDAEL_256;
+    }
+
+
+    $iv_size = mcrypt_get_iv_size($cipher, MCRYPT_MODE_ECB);
+    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+    @$crypttext = base64_encode(mcrypt_encrypt($cipher, $key, $text, MCRYPT_MODE_ECB, $iv));
+    return $crypttext;
+}
+
+function decrypt($crypt, $weak=false) {
+    include('config.php');
+
+    $key = $directlink_config['password'];
+    $cipher = MCRYPT_RIJNDAEL_128;
+    if(!$weak){
+        $salt = $directlink_config['salt'];
+        $cipher = MCRYPT_RIJNDAEL_256;
+    }
+
+    $iv_size = mcrypt_get_iv_size($cipher, MCRYPT_MODE_ECB);
+    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+    @$planetext = mcrypt_decrypt($cipher, $key, base64_decode($crypt), MCRYPT_MODE_ECB);
+
+    return !$weak ? trim(strstr($planetext, $salt, true)) : trim($planetext);
+}
