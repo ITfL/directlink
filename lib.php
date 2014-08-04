@@ -26,6 +26,14 @@ function debug($object)
     echo "<br/>";
 }
 
+function get_filetype_from_file_path ($filepath){
+    $file_type_part = strrchr($filepath, '.');
+    $extension = substr($file_type_part, 1);
+    $extension = strtolower($extension);
+
+    return $extension;
+}
+
 function  directlink_get_coursemodule_info($coursemodule)
 {
     global $DB;
