@@ -1,8 +1,8 @@
 <?php
 
-require_once(dirname(dirname(dirname(__FILE__))) . '/../config.php');
-require_once(dirname(__FILE__) . '/../lib.php');
-require_once(dirname(__FILE__) . '/../locallib.php');
+require_once(dirname(dirname(dirname(__FILE__))).'/../config.php');
+require_once(dirname(__FILE__).'/../lib.php');
+require_once(dirname(__FILE__).'/../locallib.php');
 
 
 header("Content-type: text/javascript");
@@ -74,6 +74,7 @@ $('.connection_info').append(data);
 });
 
 
+
 oTable.fnSetColumnVis( 0, false );
 });
 
@@ -102,8 +103,7 @@ that.oApi._fnClearTable( oSettings );
 var aData =  (oSettings.sAjaxDataProp !== "") ?
 that.oApi._fnGetObjectDataFn( oSettings.sAjaxDataProp )( json ) : json;
 
-for ( var i=0 ; i
-<aData.length ; i++ )
+for ( var i=0 ; i<aData.length ; i++ )
 {
 that.oApi._fnAddData( oSettings, aData[i] );
 }
@@ -457,8 +457,7 @@ function message(type, message) {
 // remove any previously shown message
 $('[class^="notify"]').remove();
 // display the new message
-$('#maincontent').after('
-<div class="notify'+type+'">'+message+'</div>');
+$('#maincontent').after('<div class="notify'+type+'">'+message+'</div>');
 }
 
 /**
@@ -471,19 +470,20 @@ var element = document.getElementById(resource);
 $(element).click();
 
 
-//    var ffc = $('input[name=ffc][checked=checked]').val();
-//    var tmp_resource = $(document.getElementById(resource)).parent();
+
+//	var ffc = $('input[name=ffc][checked=checked]').val();
+//	var tmp_resource = $(document.getElementById(resource)).parent();
 //
-//    if(ffc == 'content') {
-//        tmp_resource.parent().find('.file_name:not(:first), .folder_name:not(:first)').addClass('resource_selected');
-//    }
-//    else if(ffc == 'folder') {
-//        tmp_resource.parent().find('.folder_name:first').addClass('resource_selected');
-//        tmp_resource.parent().find('.file_name, .folder_name:not(:first)').addClass('sub_resource_selected');
-//    }
-//    else if(ffc == 'file') {
-//        tmp_resource.addClass('resource_selected');
-//    }
+//	if(ffc == 'content') {
+//		tmp_resource.parent().find('.file_name:not(:first), .folder_name:not(:first)').addClass('resource_selected');
+//	}
+//	else if(ffc == 'folder') {
+//		tmp_resource.parent().find('.folder_name:first').addClass('resource_selected');
+//		tmp_resource.parent().find('.file_name, .folder_name:not(:first)').addClass('sub_resource_selected');
+//	}
+//	else if(ffc == 'file') {
+//		tmp_resource.addClass('resource_selected');
+//	}
 }
 
 /**
@@ -495,10 +495,7 @@ $(element).click();
 */
 function create_file_html(filename, path) {
 var fileextension = filename.split('.').reverse()[0].toLocaleLowerCase();
-return '
-<div class=\'file_name\'><img src="../mod/directlink/get_ressource_icon.php?extension='+ fileextension +'"
-                              class="activityicon dl_resource_image" alt="File"><span id=\''+path + filename +'\'
-    class="file_name_text">' + filename + '</span></div>';
+return '<div class=\'file_name\'><img src="../mod/directlink/get_ressource_icon.php?extension='+ fileextension +'" class="activityicon dl_resource_image" alt="File"><span id=\''+path + filename +'\'  class="file_name_text">' + filename + '</span></div>';
 }
 
 /**
@@ -518,33 +515,18 @@ display = 'block';
 }
 
 var html_code =
-'
-<div class=\'folder_pane\'>' +
-    '
-    <div class=\'folder_name\'>' +
-        '
-        <div class="activityicon dl_resource_image dl_folder dl_folder_closed" alt="Folder"
-             style="margin:4px 5px 0px 0px;"></div>
-        <span id=\''+path + '\' class="folder_name_text">' + foldername +
-        '</span></div>
-    ' +
-    '
-    <div class=\'content_pane\' style=\'display:
-    '+display+';\'>' +
-    '
-    <div class=\'folders_pane\'>' +
+'<div class=\'folder_pane\'>' +
+    '<div class=\'folder_name\'>' +
+        '<div class="activityicon dl_resource_image dl_folder dl_folder_closed" alt="Folder" style="margin:4px 5px 0px 0px;"></div><span id=\''+path + '\' class="folder_name_text">' + foldername +
+        '</span></div>' +
+    '<div class=\'content_pane\' style=\'display: '+display+';\'>' +
+    '<div class=\'folders_pane\'>' +
         folder_section +
-        '
-    </div>
-    ' +
-    '
-    <div class=\'files_pane\'>' +
+        '</div>' +
+    '<div class=\'files_pane\'>' +
         file_section +
-        '
-    </div>
-    ' +
-    '
-</div>' +
+        '</div>' +
+    '</div>' +
 '</div>';
 
 return html_code;
@@ -791,11 +773,11 @@ $('input[name*=\'submit\']').each(
 function(index){
 $(this).click(function(){
 
-//                    console.info(get_form_vals());
+//					console.info(get_form_vals());
 //
-//                    if(!confirm('Send form?')) {
-//                        return false;
-//                    }
+//					if(!confirm('Send form?')) {
+//						return false;
+//					}
 
 if(validate_mod_directlink_mod_form($('form[id="mform1"]')[0])) {
 enable_fields();
@@ -847,4 +829,3 @@ success: credentials_checked
 
 return false;
 };
-
