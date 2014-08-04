@@ -18,6 +18,8 @@ $cm = get_coursemodule_from_id('directlink', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 $directlink = $DB->get_record('directlink', array('id' => $cm->instance), '*', MUST_EXIST);
 
+$DIRECTLINK_SUPPORTED_FORMATS = array("mp3", "mp4");
+
 require_login($course, true, $cm);
 //$context = get_context_instance(CONTEXT_MODULE, $cm->id);
 $context = context_module::instance($cm->id);
@@ -143,8 +145,11 @@ if ($ffc == 'file') {
 
     //echo $directlink->embedding;
 
-    if ($directlink->embedding) {
-        $path = decrypt($directlink->path_to_file);
+    $path = decrypt($directlink->path_to_file);
+    $file_type = get_filetype_from_file_path($path);
+
+    if ($directlink->embedding && in_array($file_type, $DIRECTLINK_SUPPORTED_FORMATS)) {
+
         $token = urlencode(encrypt($path, true));
 
         // Output starts here
