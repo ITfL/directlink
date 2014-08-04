@@ -7,14 +7,14 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
+require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
+require_once(dirname(__FILE__) . '/lib.php');
 require_once('locallib.php');
 
-$id = required_param('id', PARAM_INT);   // course
+$id = required_param('id', PARAM_INT); // course
 
-if (! $course = $DB->get_record('course', array('id' => $id))) {
-	error('Course ID is incorrect');
+if (!$course = $DB->get_record('course', array('id' => $id))) {
+    error('Course ID is incorrect');
 }
 
 require_course_login($course);
@@ -33,14 +33,14 @@ $directlink_filechoose_ignore = $directlink_config->value;
 
 $path = $mountpoint;
 
-$dir_tree = array ();
+$dir_tree = array();
 
 $ignore = preg_split("/\n*\s*,\n*\s*/", $directlink_filechoose_ignore);
 
 /*
  * builds a tree of file structure 
  */
-get_directory($path, $dir_tree, $ignore); 
+get_directory($path, $dir_tree, $ignore);
 
 $json_dir_tree = json_encode($dir_tree);
 

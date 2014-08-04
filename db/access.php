@@ -49,7 +49,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
- 
+
     'mod/directlink:addinstance' => array(
         'riskbitmask' => RISK_XSS,
         'captype' => 'write',
@@ -63,31 +63,31 @@ $capabilities = array(
 );
 
 /***************************** remove these comment marks and modify the code as needed
- * 
+ *
  * --->  http://docs.moodle.org/dev/Roles
- * --->  http://docs.moodle.org/dev/directlink_Adding_capabilities 
- * 
- * 
-    'mod/directlink:view' => array(
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_MODULE,
-        'legacy' => array(
-            'guest' => CAP_ALLOW,
-            'student' => CAP_ALLOW,
-            'teacher' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-            'admin' => CAP_ALLOW
-        )
-    ),
-
-    'mod/directlink:submit' => array(
-        'riskbitmask' => RISK_SPAM,
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_MODULE,
-        'legacy' => array(
-            'student' => CAP_ALLOW
-        )
-    ),
-******************************/
+ * --->  http://docs.moodle.org/dev/directlink_Adding_capabilities
+ *
+ *
+ * 'mod/directlink:view' => array(
+ * 'captype' => 'read',
+ * 'contextlevel' => CONTEXT_MODULE,
+ * 'legacy' => array(
+ * 'guest' => CAP_ALLOW,
+ * 'student' => CAP_ALLOW,
+ * 'teacher' => CAP_ALLOW,
+ * 'editingteacher' => CAP_ALLOW,
+ * 'admin' => CAP_ALLOW
+ * )
+ * ),
+ *
+ * 'mod/directlink:submit' => array(
+ * 'riskbitmask' => RISK_SPAM,
+ * 'captype' => 'write',
+ * 'contextlevel' => CONTEXT_MODULE,
+ * 'legacy' => array(
+ * 'student' => CAP_ALLOW
+ * )
+ * ),
+ ******************************/
 
 

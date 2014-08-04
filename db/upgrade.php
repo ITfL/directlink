@@ -43,7 +43,8 @@ defined('MOODLE_INTERNAL') || die();
  * @param int $oldversion
  * @return bool
  */
-function xmldb_directlink_upgrade($oldversion) {
+function xmldb_directlink_upgrade($oldversion)
+{
     global $DB;
 
     $dbman = $DB->get_manager(); // loads ddl manager and xmldb classes
@@ -74,17 +75,17 @@ function xmldb_directlink_upgrade($oldversion) {
 
     // First example, some fields were added to install.xml on 2007/04/01
     if ($oldversion < 2012041801) {
-		global $DB;
-		
-		
-		$DB->execute("update {directlink} set introformat = 1 where introformat = 0");
+        global $DB;
+
+
+        $DB->execute("update {directlink} set introformat = 1 where introformat = 0");
 
         // Once we reach this point, we can store the new version and consider the module
         // upgraded to the version 2012041900 so the next time this block is skipped
         upgrade_mod_savepoint(true, 2012041801, 'directlink');
     }
 
-    if ($oldversion < 2014080405){
+    if ($oldversion < 2014080405) {
         // Define field embedding to be added to directlink.
         $table = new xmldb_table('directlink');
         $field = new xmldb_field('embedding', XMLDB_TYPE_INTEGER, '1', null, null, null, '0', 'introformat');
@@ -99,9 +100,9 @@ function xmldb_directlink_upgrade($oldversion) {
     }
 
 
-/**
- * Not needed yet
- */
+    /**
+     * Not needed yet
+     */
 //    // Second example, some hours later, the same day 2007/04/01
 //    // two more fields and one index were added to install.xml (note the micro increment
 //    // "01" in the last two digits of the version

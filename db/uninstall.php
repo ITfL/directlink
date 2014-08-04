@@ -31,6 +31,7 @@
 /**
  * Custom uninstallation procedure
  */
-function xmldb_directlink_uninstall() {
+function xmldb_directlink_uninstall()
+{
     return true;
 }

@@ -30,12 +30,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$module->version  = 2014080405;  // The current module version (Date: YYYYMMDDXX)
+$module->version = 2014080406; // The current module version (Date: YYYYMMDDXX)
 
 
 // moodle version can be found at "Settings > Site administration > Notifications"
-$module->requires = 2011070100;  // Requires this Moodle version
-$module->cron     = 0;           // Period for cron to check this module (secs)
+$module->requires = 2011070100; // Requires this Moodle version
+$module->cron = 0; // Period for cron to check this module (secs)
 
 $module->maturity = MATURITY_BETA;
-$module->release  = 'squabbling squid';
+$module->release = 'squabbling squid';

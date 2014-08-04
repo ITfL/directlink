@@ -34,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  * general strings
  */
 
-$string['connection_properties'] = 'Connection Properties'; 
+$string['connection_properties'] = 'Connection Properties';
 $string['modulename'] = 'Network-Drive'; //frontend chooser name
 $string['modulenameplural'] = 'Network-Drives';
 $string['modulename_help'] = 'Use the Network-Drive module for integration of files and folders out of a share. Please contact your moodle support for requirements.';
@@ -82,13 +82,13 @@ $string['admin_mail_desc'] = 'Mail adress for Network-Drive / moodle support.';
  * plugin strings
  */
 
-$string['edit_foreign_private_share'] = 'You can’t edit other ones shares.'; 
- 
+$string['edit_foreign_private_share'] = 'You can’t edit other ones shares.';
+
 $string['existing_connections'] = 'Existing connections';
 $string['existing_connections_desc'] = 'A list of already existing connections.';
 
-$string['change_template']='Use as template';
-$string['use_in_this_course']='Share in this Course';
+$string['change_template'] = 'Use as template';
+$string['use_in_this_course'] = 'Share in this Course';
 
 $string['new_connection'] = 'Create new connection';
 
@@ -106,7 +106,7 @@ $string['description_help'] = 'Description for certain Network-Drive. Descriptio
 
 $string['server'] = 'Server';
 
-$string['choose_file'] = 'Content'; 
+$string['choose_file'] = 'Content';
 
 
 // server default from admin settings
@@ -184,8 +184,8 @@ $string['jq_show'] = 'Show _MENU_ entries';
 $string['jq_show_entries'] = 'Show _START_ to _END_ of _TOTAL_ entries';
 
 /**
-* notification
-**/
+ * notification
+ **/
 
 $string['mount_succesful_01'] = 'Mount of directory "';
 $string['mount_succesful_02'] = '" successful';
@@ -194,11 +194,11 @@ $string['mount_succesful_02'] = '" successful';
  * errors
  */
 
-$string['validation_error'] = 'Validation error occurred.'; 
+$string['validation_error'] = 'Validation error occurred.';
 
-$string['immutable_field_domain_changed'] = 'Immutable field "domain" was changed.'; 
-$string['immutable_field_user_share_changed'] = 'Immutable field "Share" was changed.'; 
-$string['immutable_field_share_user_changed'] = 'Immutable field "User" was changed.'; 
+$string['immutable_field_domain_changed'] = 'Immutable field "domain" was changed.';
+$string['immutable_field_user_share_changed'] = 'Immutable field "Share" was changed.';
+$string['immutable_field_share_user_changed'] = 'Immutable field "User" was changed.';
 
 $string['connection_error_default_user'] = 'Default user can\'t connect to the certain share.</br> Please contact ';
 
@@ -214,7 +214,7 @@ $string['file_choose_error'] = 'Please choose file/folder.';
 
 $string['link_not_found'] = 'Network-Drive not found.';
 
-$string['no_permission'] ='No permission to access file!';
+$string['no_permission'] = 'No permission to access file!';
 
 $string['change_connection_error'] = 'Cannot edit/delete connection. It is in use!';
 

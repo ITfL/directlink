@@ -34,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  * general strings
  */
 
-$string['connection_properties'] = 'Verbindungseinstellungen'; 
+$string['connection_properties'] = 'Verbindungseinstellungen';
 $string['modulename'] = 'Netzlaufwerk'; // Anzeigename in Aktivitäten-Auswahl, Website Administration
 $string['modulenameplural'] = 'Netzlaufwerke'; //Nutzung nicht gefunden
 $string['modulename_help'] = 'Das Netzlaufwerk-Modul kann genutzt werden, um Dateien und Ordner von Netzlaufwerken direkt in Moodle einzubinden. Bitte kontaktieren Sie Ihren Moodle-Support.';
@@ -83,13 +83,13 @@ $string['admin_mail_desc'] = 'Mail-Adresse des Moodle-Supports.';
  * plugin strings
  */
 
-$string['edit_foreign_private_share'] = 'Sie können Freigaben anderer Nutzer/innen nicht editieren.'; 
- 
+$string['edit_foreign_private_share'] = 'Sie können Freigaben anderer Nutzer/innen nicht editieren.';
+
 $string['existing_connections'] = 'Vorhandene Verbindungen';
 $string['existing_connections_desc'] = 'Liste bereits bestehender Verbindungen.';
 
-$string['change_template']='Als Vorlage nutzen';
-$string['use_in_this_course']='Hier freigeben';
+$string['change_template'] = 'Als Vorlage nutzen';
+$string['use_in_this_course'] = 'Hier freigeben';
 
 $string['new_connection'] = 'Erstelle neue Verbindung';
 
@@ -187,8 +187,8 @@ $string['jq_show_entries'] = 'Zeige _START_ bis _END_ von _TOTAL_ Verbindungen';
 
 
 /**
-* notification
-**/
+ * notification
+ **/
 
 $string['mount_succesful_01'] = 'Einbinden von Verzeichnis "';
 $string['mount_succesful_02'] = '" erfolgreich';
@@ -197,11 +197,11 @@ $string['mount_succesful_02'] = '" erfolgreich';
  * errors
  */
 
-$string['validation_error'] = 'Fehler während Validierung aufgetreten.'; 
+$string['validation_error'] = 'Fehler während Validierung aufgetreten.';
 
-$string['immutable_field_domain_changed'] = 'Achtung: Nicht-veränderbares Feld <b>Domäne</b> wurde geändert.'; 
-$string['immutable_field_user_share_changed'] = 'Achtung: Nicht-veränderbares Feld <b>Freigabe</b> wurde geändert.'; 
-$string['immutable_field_share_user_changed'] = 'Achtung: Nicht-veränderbares Feld <b>Nutzerkennung</b> wurde geändert.'; 
+$string['immutable_field_domain_changed'] = 'Achtung: Nicht-veränderbares Feld <b>Domäne</b> wurde geändert.';
+$string['immutable_field_user_share_changed'] = 'Achtung: Nicht-veränderbares Feld <b>Freigabe</b> wurde geändert.';
+$string['immutable_field_share_user_changed'] = 'Achtung: Nicht-veränderbares Feld <b>Nutzerkennung</b> wurde geändert.';
 
 $string['connection_error_default_user'] = 'Standard-Nutzer kann sich nicht auf die angegebene Freigabe verbinden.</br> Bitte kontaktieren Sie ';
 
@@ -217,7 +217,7 @@ $string['file_choose_error'] = 'Bitte wählen Sie eine Datei/Verzeichnis.';
 
 $string['link_not_found'] = 'Netzlaufwerk nicht gefunden.';
 
-$string['no_permission'] ='Keine Zugriffsberechtigung für diese Datei/Verzeichnis!';
+$string['no_permission'] = 'Keine Zugriffsberechtigung für diese Datei/Verzeichnis!';
 
 $string['change_connection_error'] = 'Änderungen nicht möglich, da Verbindung verwendet wird.';
 

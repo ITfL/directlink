@@ -31,7 +31,8 @@
  *
  * @see upgrade_plugins_modules()
  */
-function xmldb_directlink_install() {
+function xmldb_directlink_install()
+{
 }
 
 /**
@@ -39,5 +40,6 @@ function xmldb_directlink_install() {
  *
  * @see upgrade_plugins_modules()
  */
-function xmldb_directlink_install_recovery() {
+function xmldb_directlink_install_recovery()
+{
 }

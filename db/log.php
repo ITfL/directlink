@@ -37,8 +37,8 @@ defined('MOODLE_INTERNAL') || die();
 global $DB;
 
 $logs = array(
-    array('module'=>'directlink', 'action'=>'add', 'mtable'=>'directlink', 'field'=>'name'),
-    array('module'=>'directlink', 'action'=>'update', 'mtable'=>'directlink', 'field'=>'name'),
-    array('module'=>'directlink', 'action'=>'view', 'mtable'=>'directlink', 'field'=>'name'),
-    array('module'=>'directlink', 'action'=>'view all', 'mtable'=>'directlink', 'field'=>'name')
+    array('module' => 'directlink', 'action' => 'add', 'mtable' => 'directlink', 'field' => 'name'),
+    array('module' => 'directlink', 'action' => 'update', 'mtable' => 'directlink', 'field' => 'name'),
+    array('module' => 'directlink', 'action' => 'view', 'mtable' => 'directlink', 'field' => 'name'),
+    array('module' => 'directlink', 'action' => 'view all', 'mtable' => 'directlink', 'field' => 'name')
 );
