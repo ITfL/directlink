@@ -18,18 +18,25 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once("$CFG->libdir/filelib.php");
 
+function debug ($object){
+    echo "<pre>";
+    print_r($object);
+    echo "</pre>";
+    echo "<br/>";
+}
+
 function  directlink_get_coursemodule_info($coursemodule) {
 	global $DB;
 	/**
 	 *	http://docs.moodle.org/dev/Module_visibility_and_display#get_fast_modinfo_data
 	 */
-	
+
 	
 	# http://phpdocs.moodle.org/HEAD/core/lib/cached_cm_info.html
 	
 	$info = new cached_cm_info();
 	$empty_folder = get_string('empty_folder', 'directlink');
-	$javaScript = <<<JS
+	$javaScriptForDirectlinkTypeContent = <<<JS
 		if((typeof jQuery) == "undefined") {
 			var s=document.createElement('script');
 			s.setAttribute('src', '../mod/directlink/js/jquery-1.7.2.min.js');
@@ -84,21 +91,24 @@ function  directlink_get_coursemodule_info($coursemodule) {
 		}
 JS;
 
-
-    	
-	
-	
 	$instance_data= $DB->get_record('directlink',array('id'=> $coursemodule->instance, 'course' => $coursemodule->course ));
 	
 	if($instance_data) {
 
 		$share_type = $instance_data->ffc;
 		$path_to_file = decrypt($instance_data->path_to_file);
+
+
 		
 		if($share_type == 'file'){
 		
 			$path_parts = pathinfo($path_to_file);
-			
+            //debug($instance_data->path_to_file);
+			//debug($path_to_file);
+            //debug(encrypt($path_to_file));
+
+
+
 			$extension = '';
 			
 			if(isset($path_parts['extension'])) {
@@ -132,7 +142,7 @@ JS;
 		else if($share_type == 'content') {
 			
 			$info->icon ='i/files';
-			$info->content = "<script type=\"text/javascript\">{$javaScript}</script><div id=\"loading_directlink_{$coursemodule->instance}_course_{$coursemodule->course}\" style=\"display: block;\"><img src=\"../mod/directlink/pix/loader.gif\"></div><div class=\"directlink_show\" id=\"directlink_{$coursemodule->instance}_course_{$coursemodule->course}\" style=\"margin-left: 20px;\"></div>";
+			$info->content = "<script type=\"text/javascript\">{$javaScriptForDirectlinkTypeContent}</script><div id=\"loading_directlink_{$coursemodule->instance}_course_{$coursemodule->course}\" style=\"display: block;\"><img src=\"../mod/directlink/pix/loader.gif\"></div><div class=\"directlink_show\" id=\"directlink_{$coursemodule->instance}_course_{$coursemodule->course}\" style=\"margin-left: 20px;\"></div>";
 		}
 			
 	}
@@ -233,6 +243,7 @@ function directlink_add_instance(stdClass $directlink, mod_directlink_mod_form $
     $directlink_entry->intro = $directlink->introeditor['text'];
 
     $directlink_entry->introformat = 1;
+    $directlink_entry->embedding = $directlink->embedding;
     // $directlink_entry->introformat = $directlink->introeditor['format'];
     $directlink_entry->ffc = $directlink->ffc;
     $directlink_entry->path_to_file = $directlink->path_to_file;
@@ -328,6 +339,7 @@ function directlink_update_instance(stdClass $directlink, mod_directlink_mod_for
     $directlink_entry->intro = $directlink->introeditor['text'];
     // $directlink_entry->introformat = 1;
     $directlink_entry->introformat = $directlink->introeditor['format'];
+    $directlink_entry->embedding = $directlink->embedding;
     $directlink_entry->ffc = $directlink->ffc;
     $directlink_entry->path_to_file = $directlink->path_to_file;
     $directlink_entry->timemodified = $directlink->timemodified;
