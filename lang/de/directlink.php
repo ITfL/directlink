@@ -142,6 +142,9 @@ $string['content_desc'] = 'Inhalte eines Verzeichnisses werden eingebunden.';
 
 $string['choose_ressource'] = 'Ressource wählen';
 
+$string['embed'] = 'Einbetten';
+$string['embed_desc'] = 'Versucht die eingebundene Resource einzubinden, sodass sie nicht automatisch heruntergeladen wird.';
+
 $string['empty_folder'] = 'Verzeichnis ist leer';
 
 $string['choose_file'] = 'Inhalt';

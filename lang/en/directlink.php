@@ -143,6 +143,9 @@ $string['content_desc'] = 'Content of folder should be integrated.';
 
 $string['choose_ressource'] = 'Choose a ressource';
 
+$string['embed'] = 'Embed';
+$string['embed_desc'] = 'Tries to embed the file ';
+
 $string['empty_folder'] = 'Folder is empty';
 
 /**
