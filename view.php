@@ -106,8 +106,9 @@ HTML;
 
 $ffc = $directlink->ffc;
 
-function local_embed($url, $directlinkname)
+function local_embed($url, $directlinkname, $filetype)
 {
+    require_once("mediaplayers.php");
     global $PAGE;
 
     $width = 0;
@@ -128,10 +129,18 @@ function local_embed($url, $directlinkname)
 
     $players = $mediarenderer->get_players();
 
-    $mp3_player = $players[9];
-
+    //$mp3_player = $players[9];
     $supported = array($moodle_url);
-    $text = $mp3_player->embed($supported, $name, $width, $height, $options, 'audio/mp3');
+    if ($filetype == 'mp3'){
+        $player = new directlink_core_media_player_html5audio();
+        $text = $player->embed($supported, $name, $width, $height, $options, 'audio/mp3');
+    } elseif ($filetype == 'mp4'){
+        $player = new directlink_core_media_player_html5video();
+        $text = $player->embed($supported, $name, $width, $height, $options, 'video/mp4');
+    }
+
+
+
     $out = str_replace($placeholder, $text, $out);
     // remove Fallback
     $out = str_replace($placeholder, '', $out);
@@ -182,7 +191,7 @@ if ($ffc == 'file') {
         $moodle_url = new moodle_url($test_url);
 
         //try to embed files
-        local_embed($embed_url, $directlink->name);
+        local_embed($embed_url, $directlink->name, $file_type);
 
         // Finish the page
         echo $OUTPUT->footer();
