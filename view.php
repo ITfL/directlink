@@ -125,8 +125,6 @@ function local_embed($url, $directlinkname, $filetype)
 
     $moodle_url = new moodle_url($url);
 
-    // $mediarenderer = $PAGE->get_renderer('core', 'media');
-
     $supported = array($moodle_url);
     if ($filetype == 'mp3'){
         $player = new directlink_core_media_player_html5audio();
@@ -136,6 +134,10 @@ function local_embed($url, $directlinkname, $filetype)
         $text = $player->embed($supported, $name, $width, $height, $options, 'video/mp4');
     }
 
+    // always add fallback Download Link:
+    $text .= '<br/><br/>';
+    $fallback_player = new directlink_core_media_player_link();
+    $text .= $fallback_player->embed($supported, $name, $width, $height, $options, '');
 
 
     $out = str_replace($placeholder, $text, $out);

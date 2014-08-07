@@ -11,9 +11,13 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/lib/filelib.php');
 require_once(dirname(__FILE__) . '/lib.php');
 require_once 'locallib.php';
 
+
+
 $id = required_param('id', PARAM_INT); // course
 $instance = required_param('instance', PARAM_INT); // course
 $token = required_param('token', PARAM_RAW);
+$forcedownload = optional_param('forcedownload', 0, PARAM_INT);
+
 
 
 if (!$course = $DB->get_record('course', array('id' => $id))) {
@@ -65,9 +69,12 @@ if (shared_file_exists($filename, $instance_dl_data->connection_id)) {
         session_write_close();
 
         $stream = false;
-        if ($directlink->embedding) {
+        if ($directlink->embedding && !$forcedownload) {
+            // TODO
             send_file($filename, $filename, 0, 0, false, true, 'audio/mpeg');
+
         } else {
+
             header('Pragma: public'); // required
             header('Expires: 0');
             header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
