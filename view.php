@@ -179,14 +179,6 @@ if ($ffc == 'file') {
             core_media::OPTION_BLOCK => true,
         );
 
-        //echo $mediarenderer->embed_url(new moodle_url($embed_url), "Einbettung", 0, 0, $embedoptions);
-
-        $players = $mediarenderer->get_players();
-        //debug($players);
-
-        $test_url = "http://localhost/moodle/pluginfile.php/22/mod_resource/content/1/Pygmalioneffekt.mp3";
-        $moodle_url = new moodle_url($test_url);
-
         //try to embed files
         local_embed($embed_url, $directlink->name, $file_type);
 
