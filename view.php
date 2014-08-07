@@ -125,11 +125,8 @@ function local_embed($url, $directlinkname, $filetype)
 
     $moodle_url = new moodle_url($url);
 
-    $mediarenderer = $PAGE->get_renderer('core', 'media');
+    // $mediarenderer = $PAGE->get_renderer('core', 'media');
 
-    $players = $mediarenderer->get_players();
-
-    //$mp3_player = $players[9];
     $supported = array($moodle_url);
     if ($filetype == 'mp3'){
         $player = new directlink_core_media_player_html5audio();
