@@ -135,7 +135,7 @@ function local_embed($url, $directlinkname, $filetype)
     }
 
     // always add fallback Download Link:
-    $text .= '<br/><br/>';
+    $text .= '<br/>';
     $fallback_player = new directlink_core_media_player_link();
     $text .= $fallback_player->embed($supported, $name, $width, $height, $options, '');
 

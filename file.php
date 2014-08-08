@@ -47,6 +47,8 @@ global $USER;
  */
 
 $filename = decrypt($token, true);
+$file_type = filetype($filename);
+
 
 add_to_log($course->id, 'directlink', 'file', "file.php?id={$course->id}&instance={$instance}&token=", "{$filename}", $cm->id, $USER->id);
 
@@ -70,9 +72,7 @@ if (shared_file_exists($filename, $instance_dl_data->connection_id)) {
 
         $stream = false;
         if ($directlink->embedding && !$forcedownload) {
-            // TODO
-            send_file($filename, $filename, 0, 0, false, true, 'audio/mpeg');
-
+            send_file($filename, $filename, 0, 0, false, true, file_type_to_mime_type($file_type));
         } else {
 
             header('Pragma: public'); // required

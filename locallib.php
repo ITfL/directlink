@@ -26,6 +26,20 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once("lib.php");
+
+
+function file_type_to_mime_type($filetype){
+    $filetype = strtolower($filetype);
+    switch ($filetype){
+        case 'mp3':
+            return 'audio/mpeg';
+        case 'mp4':
+            return 'video/mpeg';
+        default:
+            return null;
+    }
+}
+
 /**
  * get number of directlinks referencing a connection with id
  */
