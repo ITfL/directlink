@@ -384,6 +384,74 @@ function directlink_delete_instance($id)
     return true;
 }
 
+function umount_share($server, $share, $domain)
+{
+    global $DB;
+
+    $directlink_mounts = $DB->get_records_sql("
+			select
+				*
+			from
+				mdl_directlink as dl,
+				mdl_directlink_connections as dlc
+			where
+				dl.connection_id = dlc.id AND
+				dlc.server = ? AND
+				dlc.user_share = ? AND
+				dlc.domain = ?", array($server, $share, $domain));
+
+    $num_of_entries = count($directlink_mounts);
+
+    $mountpoint = construct_mountpoint($server, $domain, $share);
+
+    /**
+     * If there is no such share in the db we can safely umount it
+     * else we just leave it
+     */
+    if (!umount($mountpoint)) {
+        return array("valid" => false, "msg" => 'Problem');
+    }
+    return array("valid" => true, "msg" => "umount from {$mountpoint} successful");
+}
+
+function construct_mountpoint($server, $domain, $share)
+{
+    global $DB;
+
+    $directlink_config = $DB->get_record('config', array('name' => 'directlink_mount_point'));
+    $directlink_mount_point = $directlink_config->value;
+
+    $directlink_config = $DB->get_record('config', array('name' => 'directlink_domain'));
+    $directlink_domain = $directlink_config->value;
+
+    if (preg_match('/[a-zA-Z0-9]$/', $directlink_mount_point)) {
+        $directlink_mount_point = $directlink_mount_point . "/";
+    }
+
+    $server = str_replace("\\", "", $server);
+    $server = str_replace("/", "", $server);
+
+    $mountpoint = $directlink_mount_point;
+
+    if ($directlink_domain != $domain) {
+        $mountpoint = $mountpoint . $server . "/";
+    }
+
+    $mountpoint = $mountpoint . $share;
+    return $mountpoint;
+}
+
+function umount($mountpoint)
+{
+    $umount_string = "sudo umount -l {$mountpoint} 2>&1";
+    $umounts = shell_exec($umount_string);
+
+    if (preg_match('/(error|not)/', $umounts)) {
+        return false;
+    }
+    return true;
+}
+
 /**
  * Function to be run periodically according to the moodle cron
  * This function searches for things that need to be done, such

@@ -261,33 +261,6 @@ function get_less_general_shares($share, $domain)
     return $less_general_shares;
 }
 
-function construct_mountpoint($server, $domain, $share)
-{
-    global $DB;
-
-    $directlink_config = $DB->get_record('config', array('name' => 'directlink_mount_point'));
-    $directlink_mount_point = $directlink_config->value;
-
-    $directlink_config = $DB->get_record('config', array('name' => 'directlink_domain'));
-    $directlink_domain = $directlink_config->value;
-
-    if (preg_match('/[a-zA-Z0-9]$/', $directlink_mount_point)) {
-        $directlink_mount_point = $directlink_mount_point . "/";
-    }
-
-    $server = str_replace("\\", "", $server);
-    $server = str_replace("/", "", $server);
-
-    $mountpoint = $directlink_mount_point;
-
-    if ($directlink_domain != $domain) {
-        $mountpoint = $mountpoint . $server . "/";
-    }
-
-    $mountpoint = $mountpoint . $share;
-    return $mountpoint;
-}
-
 function mount($smbclient_server, $share, $domain, $user, $pwd)
 {
     global $DB;
@@ -372,47 +345,6 @@ function mount_share_to_fs($smbclient_server, $share, $domain, $user, $pwd)
     $mount_msg = mount($server, $share, $domain, $user, $pwd);
 
     return $mount_msg;
-}
-
-function umount($mountpoint)
-{
-    $umount_string = "sudo umount -l {$mountpoint} 2>&1";
-    $umounts = shell_exec($umount_string);
-
-    if (preg_match('/(error|not)/', $umounts)) {
-        return false;
-    }
-    return true;
-}
-
-function umount_share($server, $share, $domain)
-{
-    global $DB;
-
-    $directlink_mounts = $DB->get_records_sql("
-			select 
-				* 
-			from 
-				mdl_directlink as dl,
-				mdl_directlink_connections as dlc
-			where 
-				dl.connection_id = dlc.id AND
-				dlc.server = ? AND
-				dlc.user_share = ? AND
-				dlc.domain = ?", array($server, $share, $domain));
-
-    $num_of_entries = count($directlink_mounts);
-
-    $mountpoint = construct_mountpoint($server, $domain, $share);
-
-    /**
-     * If there is no such share in the db we can safely umount it
-     * else we just leave it
-     */
-    if (!umount($mountpoint)) {
-        return array("valid" => false, "msg" => 'Problem');
-    }
-    return array("valid" => true, "msg" => "umount from {$mountpoint} successful");
 }
 
 function share_already_mounted($mountpoint)

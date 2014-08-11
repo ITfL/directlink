@@ -21,7 +21,7 @@ $directlink = $DB->get_record('directlink', array('id' => $cm->instance), '*', M
 $DIRECTLINK_SUPPORTED_FORMATS = array("mp3", "mp4");
 
 require_login($course, true, $cm);
-//$context = get_context_instance(CONTEXT_MODULE, $cm->id);
+
 $context = context_module::instance($cm->id);
 
 
@@ -111,8 +111,8 @@ function local_embed($url, $directlinkname, $filetype)
     require_once("mediaplayers.php");
     global $PAGE;
 
-    $width = 0;
-    $height = 0;
+    $width = 800;
+    $height = 600;
     $options = array(
         core_media::OPTION_TRUSTED => true,
         core_media::OPTION_BLOCK => true,
