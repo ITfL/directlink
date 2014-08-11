@@ -671,6 +671,6 @@ HTML;
         $this->standard_coursemodule_elements(false);
         //-------------------------------------------------------------------------------
         // add standard buttons, common to all modules
-        $this->add_action_buttons();
+        $this->add_action_buttons(true, false);
     }
 }
