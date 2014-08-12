@@ -18,7 +18,7 @@ $cm = get_coursemodule_from_id('directlink', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 $directlink = $DB->get_record('directlink', array('id' => $cm->instance), '*', MUST_EXIST);
 
-$DIRECTLINK_SUPPORTED_FORMATS = array("mp3", "mp4");
+
 
 require_login($course, true, $cm);
 
@@ -131,6 +131,9 @@ function local_embed($url, $directlinkname, $filetype)
         $text = $player->embed($supported, $name, $width, $height, $options, 'audio/mp3');
     } elseif ($filetype == 'mp4'){
         $player = new directlink_core_media_player_html5video();
+        $text = $player->embed($supported, $name, $width, $height, $options, 'video/mp4');
+    }  elseif ($filetype == 'flv'){
+        $player = new directlink_core_media_player_flv();
         $text = $player->embed($supported, $name, $width, $height, $options, 'video/mp4');
     }
 

@@ -47,7 +47,7 @@ global $USER;
  */
 
 $filename = decrypt($token, true);
-$file_type = filetype($filename);
+$file_type = get_filetype_from_file_path($filename);
 
 
 add_to_log($course->id, 'directlink', 'file', "file.php?id={$course->id}&instance={$instance}&token=", "{$filename}", $cm->id, $USER->id);
@@ -69,9 +69,8 @@ if (shared_file_exists($filename, $instance_dl_data->connection_id)) {
         */
 
         session_write_close();
-
         $stream = false;
-        if ($directlink->embedding && !$forcedownload) {
+        if ($directlink->embedding && !$forcedownload && in_array($file_type, $DIRECTLINK_SUPPORTED_FORMATS)) {
             send_file($filename, $filename, 0, 0, false, true, file_type_to_mime_type($file_type));
         } else {
 

@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once("lib.php");
 
+$DIRECTLINK_SUPPORTED_FORMATS = array("mp3", "mp4");
 
 function file_type_to_mime_type($filetype){
     $filetype = strtolower($filetype);
