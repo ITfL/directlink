@@ -435,3 +435,47 @@ class directlink_core_media_player_link extends directlink_core_media_player {
         return 0;
     }
 }
+
+
+/**
+ * Flash video player inserted using JavaScript.
+ *
+ * @copyright 2011 The Open University
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class directlink_core_media_player_flv extends core_media_player {
+    public function embed($urls, $name, $width, $height, $options, $mimetype='video/flv') {
+        // Use first url (there can actually be only one unless some idiot
+        // enters two mp3 files as alternatives).
+        $url = reset($urls);
+
+        // Unique id even across different http requests made at the same time
+        // (for AJAX, iframes).
+        $id = 'core_media_flv_' . md5(time() . '_' . rand());
+
+        // Compute width and height.
+        $autosize = false;
+        if (!$width && !$height) {
+            $width = CORE_MEDIA_VIDEO_WIDTH;
+            $height = CORE_MEDIA_VIDEO_HEIGHT;
+            $autosize = true;
+        }
+
+        // Fallback span (will normally contain link).
+        $output = html_writer::tag('span', core_media_player::PLACEHOLDER,
+            array('id'=>$id, 'class'=>'mediaplugin mediaplugin_flv'));
+        // We can not use standard JS init because this may be cached.
+        $output .= html_writer::script(js_writer::function_call(
+            'M.util.add_video_player', array($id, addslashes_js($url->out(false)),
+            $width, $height, $autosize)));
+        return $output;
+    }
+
+    public function get_supported_extensions() {
+        return array('flv', 'f4v');
+    }
+
+    public function get_rank() {
+        return 70;
+    }
+}
