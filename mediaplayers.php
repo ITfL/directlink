@@ -297,7 +297,7 @@ class directlink_core_media_player_html5video extends directlink_core_media_play
                 $mimetype = $forcemime;
             }
             $source = html_writer::tag('source', '', array('src' => $url, 'type' => $mimetype));
-            if ($mimetype === 'video/mp4') {
+            /*if ($mimetype === 'video/mp4') {
                 if ($oldandroid) {
                     // Old Android fails if you specify the type param.
                     $source = html_writer::tag('source', '', array('src' => $url));
@@ -306,9 +306,9 @@ class directlink_core_media_player_html5video extends directlink_core_media_play
                 // Better add m4v as first source, it might be a bit more
                 // compatible with problematic browsers.
                 array_unshift($sources, $source);
-            } else {
+            } else {*/
                 $sources[] = $source;
-            }
+            //}
         }
 
         $sources = implode("\n", $sources);

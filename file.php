@@ -37,7 +37,8 @@ $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST)
 $directlink = $DB->get_record('directlink', array('id' => $cm->instance), '*', MUST_EXIST);
 
 require_login($course, true, $cm);
-$context = get_context_instance(CONTEXT_MODULE, $cm->id);
+#$context = get_context_instance(CONTEXT_MODULE, $cm->id);
+$context = context_module::instance($cm->id);
 
 
 global $USER;
@@ -48,7 +49,6 @@ global $USER;
 
 $filename = decrypt($token, true);
 $file_type = get_filetype_from_file_path($filename);
-
 
 add_to_log($course->id, 'directlink', 'file', "file.php?id={$course->id}&instance={$instance}&token=", "{$filename}", $cm->id, $USER->id);
 
@@ -69,11 +69,11 @@ if (shared_file_exists($filename, $instance_dl_data->connection_id)) {
         */
 
         session_write_close();
-        $stream = false;
+
+
         if ($directlink->embedding && !$forcedownload && in_array($file_type, $DIRECTLINK_SUPPORTED_FORMATS)) {
             send_file($filename, $filename, 0, 0, false, true, file_type_to_mime_type($file_type));
         } else {
-
             header('Pragma: public'); // required
             header('Expires: 0');
             header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

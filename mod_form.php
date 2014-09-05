@@ -135,7 +135,7 @@ class mod_directlink_mod_form extends moodleform_mod
      * get formula data and is validating content
      * @see moodleform_mod::validation()
      */
-    function validation(&$data, $files)
+    function validation($data, $files)
     {
 
         $errors = parent::validation($data, $files);
@@ -209,7 +209,9 @@ class mod_directlink_mod_form extends moodleform_mod
     {
         global $USER, $DB, $COURSE;
 
-        $usercontext = get_context_instance(CONTEXT_USER, $USER->id);
+        //$usercontext = get_context_instance(CONTEXT_USER, $USER->id);
+        $usercontext = context_user::instance($USER->id);
+
 
         $mform = $this->_form;
 
@@ -552,16 +554,22 @@ HTML;
         		</div>');
 
         $mform->addElement('hidden', 'reference', '0');
+        $mform->setType('reference', PARAM_RAW);
+
         $directlink_deny_external_hosts = $DB->get_record('config', array('name' => 'directlink_deny_external_hosts'));
         $directlink_deny_external_hosts = $directlink_deny_external_hosts->value;
         $mform->addElement('hidden', 'deny_external_hosts', $directlink_deny_external_hosts);
+        $mform->setType('deny_external_hosts', PARAM_RAW);
 
         $mform->addElement('text', 'connection_name', get_string('connection_name', 'directlink'), array('size' => '32'));
         $mform->addRule('connection_name', null, 'required', null, 'client');
+        $mform->setType('connection_name', PARAM_RAW);
+
         $mform->addHelpButton('connection_name', 'connection_name', 'directlink');
 
 
         $mform->addElement('hidden', 'directlink_user_id', $usercontext->instanceid);
+        $mform->setType('directlink_user_id', PARAM_RAW);
 
         $directlink_fileserver = $DB->get_record('config', array('name' => 'directlink_fileserver'));
         $server_attr = array('size' => '32', 'value' => $directlink_fileserver->value);
@@ -571,6 +579,7 @@ HTML;
         }
 
         $mform->addElement('text', 'server', get_string('server', 'directlink'), $server_attr);
+        $mform->setType('server', PARAM_RAW);
         $mform->addRule('server', null, 'required', null, 'client');
 
 
@@ -583,13 +592,16 @@ HTML;
 
         $mform->addElement('text', 'domain', get_string('domain', 'directlink'), $domain_attr);
         $mform->addRule('domain', null, 'required', null, 'client');
+        $mform->setType('domain', PARAM_RAW);
 
 
         $mform->addElement('text', 'user_share', get_string('user_share', 'directlink'), array('size' => '32'));
         $mform->addRule('user_share', null, 'required', null, 'client');
+        $mform->setType('user_share', PARAM_RAW);
 
         $mform->addElement('text', 'share_user', get_string('share_user', 'directlink'), array('size' => '32'));
         $mform->addRule('share_user', null, 'required', null, 'client');
+        $mform->setType('share_user', PARAM_RAW);
 
 
         $mform->addElement('passwordunmask', 'share_user_pwd', get_string('share_user_pwd', 'directlink'), array('size' => '32'));
@@ -620,6 +632,7 @@ HTML;
 
         $mform->addElement('text', 'name', get_string('name', 'directlink'), array('size' => '32'));
         $mform->addRule('name', null, 'required', null, 'client');
+        $mform->setType('name', PARAM_RAW);
 
 
         $directlink_desc = $DB->get_record('config', array('name' => 'directlink_desc_required'));
@@ -664,6 +677,8 @@ HTML;
 
 
         $mform->addElement('text', 'path_to_file', 'path_to_file', array('size' => '125'));
+        $mform->setType('path_to_file', PARAM_RAW);
+
 
 
         //-------------------------------------------------------------------------------

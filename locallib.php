@@ -27,15 +27,19 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once("lib.php");
 
-$DIRECTLINK_SUPPORTED_FORMATS = array("mp3", "mp4");
+$DIRECTLINK_SUPPORTED_FORMATS = array("mp3", "ogg", "mp4", "flv");
 
 function file_type_to_mime_type($filetype){
     $filetype = strtolower($filetype);
     switch ($filetype){
         case 'mp3':
             return 'audio/mpeg';
+        case 'ogg':
+            return 'audio/ogg';
         case 'mp4':
-            return 'video/mpeg';
+            return 'video/mp4';
+        case 'flv':
+            return 'video/x-flv';
         default:
             return null;
     }

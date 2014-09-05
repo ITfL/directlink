@@ -111,8 +111,8 @@ function local_embed($url, $directlinkname, $filetype)
     require_once("mediaplayers.php");
     global $PAGE;
 
-    $width = 800;
-    $height = 600;
+    $width = 640;
+    $height = 480;
     $options = array(
         core_media::OPTION_TRUSTED => true,
         core_media::OPTION_BLOCK => true,
@@ -123,18 +123,26 @@ function local_embed($url, $directlinkname, $filetype)
     $placeholder = "<!--FALLBACK-->";
     $out = $placeholder;
 
+    debug($url);
+
+    if ($filetype == 'flv'){
+        $url = rawurlencode($url);
+    }
     $moodle_url = new moodle_url($url);
 
     $supported = array($moodle_url);
     if ($filetype == 'mp3'){
         $player = new directlink_core_media_player_html5audio();
         $text = $player->embed($supported, $name, $width, $height, $options, 'audio/mp3');
+    } elseif ($filetype == 'ogg'){
+        $player = new directlink_core_media_player_html5audio();
+        $text = $player->embed($supported, $name, $width, $height, $options, 'audio/ogg');
     } elseif ($filetype == 'mp4'){
         $player = new directlink_core_media_player_html5video();
         $text = $player->embed($supported, $name, $width, $height, $options, 'video/mp4');
     }  elseif ($filetype == 'flv'){
         $player = new directlink_core_media_player_flv();
-        $text = $player->embed($supported, $name, $width, $height, $options, 'video/mp4');
+        $text = $player->embed($supported, $name, $width, $height, $options, 'video/x-flv');
     }
 
     // always add fallback Download Link:
