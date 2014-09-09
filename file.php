@@ -12,12 +12,11 @@ require_once(dirname(__FILE__) . '/lib.php');
 require_once 'locallib.php';
 
 
-
 $id = required_param('id', PARAM_INT); // course
 $instance = required_param('instance', PARAM_INT); // course
 $token = required_param('token', PARAM_RAW);
 $forcedownload = optional_param('forcedownload', 0, PARAM_INT);
-
+$folder_embed = optional_param('folder_embed', 0, PARAM_INT);
 
 
 if (!$course = $DB->get_record('course', array('id' => $id))) {
@@ -52,10 +51,15 @@ $file_type = get_filetype_from_file_path($filename);
 
 add_to_log($course->id, 'directlink', 'file', "file.php?id={$course->id}&instance={$instance}&token=", "{$filename}", $cm->id, $USER->id);
 
+//debug($filename);
+//debug($file_type);
+
+
 if (shared_file_exists($filename, $instance_dl_data->connection_id)) {
     $file_info = posix_getpwuid(fileowner($filename));
 
     $file_owner = $file_info['name'];
+
 
     /**
      * Check if
@@ -63,7 +67,15 @@ if (shared_file_exists($filename, $instance_dl_data->connection_id)) {
      *    - file_name is located in the path of the directlink instance
      *    - www-data is owner of that file
      */
-    if (strstr($filename, $directlink_mount_point) && strstr($filename, $path_to_file) && $file_owner == "www-data") {
+    if (
+        (strstr($filename, $directlink_mount_point) &&
+            strstr($filename, $path_to_file) &&
+            $file_owner == "www-data")
+        ||
+        (strstr($filename, $directlink_mount_point) &&
+            $file_owner == "www-data" &&
+            $folder_embed)
+    ) {
         /*
          * FROM: http://stackoverflow.com/questions/1968106/generate-download-file-link-in-php
         */

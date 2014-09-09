@@ -13,6 +13,7 @@ global $USER;
 
 $id = required_param('id', PARAM_INT); // course_module ID, or
 $token = optional_param('token', '', PARAM_RAW);
+$folder_embed = optional_param('folder_embed', false, PARAM_INT );
 
 $cm = get_coursemodule_from_id('directlink', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
@@ -33,12 +34,17 @@ $PAGE->requires->css('/mod/directlink/css/mod_form_styles.css');
 
 function get_html_folder_statement($foldername, $folder, $path)
 {
-
     global $cm;
+    global $directlink;
+    global $DIRECTLINK_SUPPORTED_FORMATS;
+
+
     $file_section = '';
     $folder_section = '';
 
     $path = $path . $foldername . "/";
+
+    //echo $directlink->embedding . "ja?";
 
 
     foreach ($folder['file'] as $index => $value) {
@@ -59,24 +65,35 @@ function get_html_folder_statement($foldername, $folder, $path)
             $longfilename = $longfilename . "...";
             $name = $longfilename;
         }
-        $file_section_tmp = <<<HTML
+        if ( $directlink->embedding && in_array($fileextension[0], $DIRECTLINK_SUPPORTED_FORMATS)){
+            $file_section_tmp = <<<HTML
 			<div class='file_name'>
-			
-			
 				<div style="float: left;">
 					<img src="get_ressource_icon.php?extension={$fileextension[0]}" class="activityicon dl_ressource_image" alt="File">
 					<span class="file_name_text">
-						<a title="Super{$titlename}" href="file.php?id={$cm->course}&instance={$cm->instance}&token={$token}">{$name}</a>
+						<a title="{$titlename}" href="view.php?id={$cm->course}&folder_embed=1&token={$token}">{$name}</a>
 					</span>
 				</div>
 				<div align="right" style="float: right; width: 250px;">{$changed}</div>
 				<div align="right" style="float: right; width: 75px;">{$size}</div>
 				<div style="clear: both;"></div>
-			
-			
-				
 			</div>
 HTML;
+        } else {
+            $file_section_tmp = <<<HTML
+			<div class='file_name'>
+				<div style="float: left;">
+					<img src="get_ressource_icon.php?extension={$fileextension[0]}" class="activityicon dl_ressource_image" alt="File">
+					<span class="file_name_text">
+						<a title="{$titlename}" href="file.php?id={$cm->course}&instance={$cm->instance}&token={$token}">{$name}</a>
+					</span>
+				</div>
+				<div align="right" style="float: right; width: 250px;">{$changed}</div>
+				<div align="right" style="float: right; width: 75px;">{$size}</div>
+				<div style="clear: both;"></div>
+			</div>
+HTML;
+        }
         $file_section = $file_section . $file_section_tmp;
     }
 
@@ -104,15 +121,13 @@ HTML;
     return $html_code;
 }
 
-$ffc = $directlink->ffc;
-
 function local_embed($url, $directlinkname, $filetype)
 {
     require_once("mediaplayers.php");
     global $PAGE;
 
-    $width = 640;
-    $height = 480;
+    $width = 0;
+    $height = 0;
     $options = array(
         core_media::OPTION_TRUSTED => true,
         core_media::OPTION_BLOCK => true,
@@ -123,11 +138,12 @@ function local_embed($url, $directlinkname, $filetype)
     $placeholder = "<!--FALLBACK-->";
     $out = $placeholder;
 
-    debug($url);
+    //debug($url);
 
     if ($filetype == 'flv'){
         $url = rawurlencode($url);
     }
+    print_r($url);
     $moodle_url = new moodle_url($url);
 
     $supported = array($moodle_url);
@@ -157,14 +173,20 @@ function local_embed($url, $directlinkname, $filetype)
 
     $out = html_writer::tag('div', $out, array('class' => 'resourcecontent'));
 
-    debug($out);
+    echo $out;
 }
 
-if ($ffc == 'file') {
+$ffc = $directlink->ffc;
+
+if ($ffc == 'file' or $folder_embed == 1) {
 
     //echo $directlink->embedding;
+    if ($folder_embed) {
+        $path = decrypt($token, true);
+    } else {
+        $path = decrypt($directlink->path_to_file);
+    }
 
-    $path = decrypt($directlink->path_to_file);
     $file_type = get_filetype_from_file_path($path);
 
     if ($directlink->embedding && in_array($file_type, $DIRECTLINK_SUPPORTED_FORMATS)) {
@@ -184,8 +206,12 @@ if ($ffc == 'file') {
         echo $OUTPUT->heading($directlink->name);
 
         $mediarenderer = $PAGE->get_renderer('core', 'media');
+        if ($folder_embed){
+            $embed_url = $CFG->wwwroot . '/mod/directlink/file.php?id=' . $directlink->course . '&instance=' . $directlink->id . '&token=' . $token . '&folder_embed=1';
+        } else {
+            $embed_url = $CFG->wwwroot . '/mod/directlink/file.php?id=' . $directlink->course . '&instance=' . $directlink->id . '&token=' . $token;
+        }
 
-        $embed_url = $CFG->wwwroot . '/mod/directlink/file.php?id=' . $directlink->course . '&instance=' . $directlink->id . '&token=' . $token;
 
         $embedoptions = array(
             core_media::OPTION_TRUSTED => true,
