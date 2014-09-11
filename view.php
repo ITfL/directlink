@@ -71,7 +71,7 @@ function get_html_folder_statement($foldername, $folder, $path)
 				<div style="float: left;">
 					<img src="get_ressource_icon.php?extension={$fileextension[0]}" class="activityicon dl_ressource_image" alt="File">
 					<span class="file_name_text">
-						<a title="{$titlename}" href="view.php?id={$cm->course}&folder_embed=1&token={$token}">{$name}</a>
+						<a title="{$titlename}" href="view.php?id={$cm->id}&folder_embed=1&token={$token}">{$name}</a>
 					</span>
 				</div>
 				<div align="right" style="float: right; width: 250px;">{$changed}</div>
@@ -139,11 +139,10 @@ function local_embed($url, $directlinkname, $filetype)
     $out = $placeholder;
 
     //debug($url);
-
     if ($filetype == 'flv'){
         $url = rawurlencode($url);
     }
-    print_r($url);
+
     $moodle_url = new moodle_url($url);
 
     $supported = array($moodle_url);
@@ -195,7 +194,14 @@ if ($ffc == 'file' or $folder_embed == 1) {
 
         // Output starts here
         $PAGE->set_url('/mod/directlink/view.php', array('id' => $cm->id));
-        $PAGE->set_title(format_string($directlink->name));
+        if ($folder_embed) {
+            // get last part of file name
+            $display_name = format_string(end(explode('/', $path)));
+        } else {
+            $display_name = format_string($directlink->name);
+        }
+        $PAGE->set_title(format_string($display_name));
+
         $PAGE->set_heading(format_string($course->fullname));
         $PAGE->set_context($context);
 
@@ -203,7 +209,7 @@ if ($ffc == 'file' or $folder_embed == 1) {
         echo $OUTPUT->header();
 
         // Replace the following lines with you own code
-        echo $OUTPUT->heading($directlink->name);
+        echo $OUTPUT->heading($display_name);
 
         $mediarenderer = $PAGE->get_renderer('core', 'media');
         if ($folder_embed){
@@ -219,7 +225,7 @@ if ($ffc == 'file' or $folder_embed == 1) {
         );
 
         //try to embed files
-        local_embed($embed_url, $directlink->name, $file_type);
+        local_embed($embed_url, $display_name, $file_type);
 
         // Finish the page
         echo $OUTPUT->footer();
