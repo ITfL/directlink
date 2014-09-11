@@ -55,16 +55,20 @@ function  directlink_get_coursemodule_info($coursemodule)
 		}
 		
 		function create_content(json) {
-			
+            console.log(json)
 			instance_array = json.instance.split('_');
 			if(json.type == 'content'){
 				if(!json.error){
 					var content_count = 0;	
-				
+
 					$.each(json.files, function(index, value) {
-						var fileextension = value.name.split('.').reverse()[0].toLocaleLowerCase(); 
-						$('#'+json.instance).prepend('<div><a class="d_link" href="../mod/directlink/file.php?id='+instance_array[3]+'&instance='+instance_array[1]+'&token='+value.token+'"><img src="../mod/directlink/get_ressource_icon.php?extension='+fileextension+'" class="activityicon dl_ressource_image" alt="File"><span class="instancename"> '+value.name+'<span class="accesshide">File</span></span></a></div>');
-						content_count++;
+						var fileextension = value.name.split('.').reverse()[0].toLocaleLowerCase();
+						 if (value.embeddable){
+                            $('#'+json.instance).prepend('<div><a class="d_link" href="../mod/directlink/view.php?id=' + json.cm_id + '&folder_embed=1&token='+value.token+'"><img src="../mod/directlink/get_ressource_icon.php?extension='+fileextension+'" class="activityicon dl_ressource_image" alt="File"><span class="instancename"> '+value.name+'<span class="accesshide">File</span></span></a></div>');
+						 } else {
+                            $('#'+json.instance).prepend('<div><a class="d_link" href="../mod/directlink/file.php?id='+instance_array[3]+'&instance='+instance_array[1]+'&token='+value.token+'"><img src="../mod/directlink/get_ressource_icon.php?extension='+fileextension+'" class="activityicon dl_ressource_image" alt="File"><span class="instancename"> '+value.name+'<span class="accesshide">File</span></span></a></div>');
+						 }
+						 content_count++;
 					});
 					
 					$.each(json.folders, function(index, value) {

@@ -39,6 +39,7 @@ $instance_data = $instance_data[0];
 $instance_data->id = $instance;
 $instance_data->share_user_pwd = decrypt($instance_data->share_user_pwd);
 
+$embedding = $instance_data->embedding;
 
 $server = $instance_data->server;
 $share = $instance_data->user_share;
@@ -88,7 +89,14 @@ if ($check_results->valid) {
         $files = array();
         foreach ($dir_tree[$foldername]['file'] as $index => $value) {
             $abs_path = $path_to_file . $index;
-            $files[] = array('name' => $index, 'token' => urlencode(encrypt($abs_path, true)));
+            $file_extension = array_reverse(explode(".", $index));
+            $file_extension = $file_extension[0];
+            if (in_array($file_extension, $DIRECTLINK_SUPPORTED_FORMATS)) {
+                $files[] = array('embeddable' => 1, 'name' => $index, 'token' => urlencode(encrypt($abs_path, true)));
+            } else {
+                $files[] = array('embeddable' => 0, 'name' => $index, 'token' => urlencode(encrypt($abs_path, true)));
+            }
+
         }
 
         $folders = array();
@@ -112,6 +120,7 @@ if ($check_results->valid) {
         $result = array();
         $result['type'] = 'content';
         $result['name'] = $foldername;
+        $result['embedding'] = $embedding;
         $result['instance'] = 'directlink_' . $instance . '_course_' . $id;
         $result['cm_id'] = $cm_query[0]->id;
         $result['error'] = $folder_error;
