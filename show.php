@@ -102,7 +102,7 @@ if ($check_results->valid) {
         $folders = array();
         foreach ($dir_tree[$foldername]['folder'] as $index => $value) {
             $abs_path = $path_to_file . $index . "/";
-            $folders[] = array('name' => $index, 'token' => urlencode(encrypt($abs_path, true)));
+            $folders[] = array('name' => $index, 'token' => urlencode(encrypt($abs_path, true)), 'original_name' => $abs_path);
         }
 
         $folders = array_reverse($folders);
@@ -112,8 +112,10 @@ if ($check_results->valid) {
         $foldername = $foldername[1];
         $folder_error = file_exists($path_to_file) ? false : true;
 
+        $module_id_query = $DB->get_record_sql('SELECT id FROM {modules} WHERE name LIKE "directlink"');
+        $directlink_module_id = $module_id_query->id;
+        $cm_query = $DB->get_records_sql('SELECT id FROM {course_modules} WHERE module = ? AND course = ? AND instance = ?', array($directlink_module_id, $id, $instance));
 
-        $cm_query = $DB->get_records_sql('SELECT id FROM {course_modules} WHERE course = ? AND instance = ?', array($id, $instance));
         // sort result such that the id is at key 0 not key = id ...
         sort($cm_query);
 
