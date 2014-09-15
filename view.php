@@ -13,12 +13,11 @@ global $USER;
 
 $id = required_param('id', PARAM_INT); // course_module ID, or
 $token = optional_param('token', '', PARAM_RAW);
-$folder_embed = optional_param('folder_embed', false, PARAM_INT );
+$folder_embed = optional_param('folder_embed', false, PARAM_INT);
 
 $cm = get_coursemodule_from_id('directlink', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 $directlink = $DB->get_record('directlink', array('id' => $cm->instance), '*', MUST_EXIST);
-
 
 
 require_login($course, true, $cm);
@@ -65,7 +64,7 @@ function get_html_folder_statement($foldername, $folder, $path)
             $longfilename = $longfilename . "...";
             $name = $longfilename;
         }
-        if ( $directlink->embedding && in_array($fileextension[0], $DIRECTLINK_SUPPORTED_FORMATS)){
+        if ($directlink->embedding && in_array($fileextension[0], $DIRECTLINK_SUPPORTED_FORMATS)) {
             $file_section_tmp = <<<HTML
 			<div class='file_name'>
 				<div style="float: left;">
@@ -121,7 +120,7 @@ HTML;
     return $html_code;
 }
 
-function local_embed($url, $directlinkname, $filetype)
+function local_embed($url, $directlinkname, $filetype, $add_fallback_link = 'true')
 {
     require_once("mediaplayers.php");
     global $PAGE;
@@ -139,32 +138,33 @@ function local_embed($url, $directlinkname, $filetype)
     $out = $placeholder;
 
     //debug($url);
-    if ($filetype == 'flv'){
+    if ($filetype == 'flv') {
         $url = rawurlencode($url);
     }
 
     $moodle_url = new moodle_url($url);
 
     $supported = array($moodle_url);
-    if ($filetype == 'mp3'){
+    if ($filetype == 'mp3') {
         $player = new directlink_core_media_player_html5audio();
         $text = $player->embed($supported, $name, $width, $height, $options, 'audio/mp3');
-    } elseif ($filetype == 'ogg'){
+    } elseif ($filetype == 'ogg') {
         $player = new directlink_core_media_player_html5audio();
         $text = $player->embed($supported, $name, $width, $height, $options, 'audio/ogg');
-    } elseif ($filetype == 'mp4'){
+    } elseif ($filetype == 'mp4') {
         $player = new directlink_core_media_player_html5video();
         $text = $player->embed($supported, $name, $width, $height, $options, 'video/mp4');
-    }  elseif ($filetype == 'flv'){
+    } elseif ($filetype == 'flv') {
         $player = new directlink_core_media_player_flv();
         $text = $player->embed($supported, $name, $width, $height, $options, 'video/x-flv');
     }
 
     // always add fallback Download Link:
-    $text .= '<br/>';
-    $fallback_player = new directlink_core_media_player_link();
-    $text .= $fallback_player->embed($supported, $name, $width, $height, $options, '');
-
+    if ($add_fallback_link) {
+        $text .= '<br/>';
+        $fallback_player = new directlink_core_media_player_link();
+        $text .= $fallback_player->embed($supported, $name, $width, $height, $options, '');
+    }
 
     $out = str_replace($placeholder, $text, $out);
     // remove Fallback
@@ -212,20 +212,14 @@ if ($ffc == 'file' or $folder_embed == 1) {
         echo $OUTPUT->heading($display_name);
 
         $mediarenderer = $PAGE->get_renderer('core', 'media');
-        if ($folder_embed){
+        if ($folder_embed) {
             $embed_url = $CFG->wwwroot . '/mod/directlink/file.php?id=' . $directlink->course . '&instance=' . $directlink->id . '&token=' . $token . '&folder_embed=1';
         } else {
             $embed_url = $CFG->wwwroot . '/mod/directlink/file.php?id=' . $directlink->course . '&instance=' . $directlink->id . '&token=' . $token;
         }
 
-
-        $embedoptions = array(
-            core_media::OPTION_TRUSTED => true,
-            core_media::OPTION_BLOCK => true,
-        );
-
-        //try to embed files
-        local_embed($embed_url, $display_name, $file_type);
+        //embed file
+        local_embed($embed_url, $display_name, $file_type, $directlink->offer_download_link);
 
         // Finish the page
         echo $OUTPUT->footer();

@@ -143,7 +143,12 @@ $string['content_desc'] = 'Inhalte eines Verzeichnisses werden eingebunden.';
 $string['choose_ressource'] = 'Ressource wählen';
 
 $string['embed'] = 'Einbetten';
-$string['embed_desc'] = 'Versucht die eingebundene Resource einzubinden, sodass sie nicht automatisch heruntergeladen wird.';
+$string['embed_desc'] = 'Versucht die eingebundene Resource direkt im Browser anzuzeigen. Dadurch muss sie nicht heruntergeladen werden. (Unterstützte Medienformate: FLV, MP3, MP4 und OGG)';
+
+$string['offer_download_link'] = 'Downloadlink anzeigen';
+$string['offer_download_link_help'] = 'Es kann nicht sichergestellt werden, dass jedes Endgerät jedes verwendete Medienformat abspielen kann. Deshalb ist es in den meisten Fällen sinnvoll einen zusätzlichen Downloadlink anzubieten.';
+$string['offer_download_link_desc'] = 'Diese Einstellung führt dazu, dass bei jedem eingebetteten Inhalt ein zusätzlicher Download Link hinzugefügt wird';
+
 
 $string['empty_folder'] = 'Verzeichnis ist leer';
 

@@ -654,7 +654,7 @@ HTML;
         }
 
         $mform->addElement('header', 'choosefile', get_string('choose_file', 'directlink'));
-
+        $mform->setExpanded('choosefile');
         $mform->addElement('radio', 'ffc', get_string('file', 'directlink'), get_string('file_desc', 'directlink'), 'file');
         $mform->addElement('radio', 'ffc', get_string('folder', 'directlink'), get_string('folder_desc', 'directlink'), 'folder');
         $mform->addElement('radio', 'ffc', get_string('content', 'directlink'), get_string('content_desc', 'directlink'), 'content');
@@ -674,11 +674,11 @@ HTML;
         		</div>
         		</div>');
         $mform->addElement('checkbox', 'embedding', get_string('embed', 'directlink'), get_string('embed_desc', 'directlink'), '0');
-
+        $mform->addElement('checkbox', 'offer_download_link', get_string('offer_download_link', 'directlink'), get_string('offer_download_link_desc', 'directlink'), '0');
+        $mform->addHelpButton('offer_download_link', 'offer_download_link', 'directlink');
 
         $mform->addElement('text', 'path_to_file', 'path_to_file', array('size' => '125'));
         $mform->setType('path_to_file', PARAM_RAW);
-
 
 
         //-------------------------------------------------------------------------------

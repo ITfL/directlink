@@ -26,7 +26,8 @@ function debug($object)
     echo "<br/>";
 }
 
-function get_filetype_from_file_path ($filepath){
+function get_filetype_from_file_path($filepath)
+{
     $file_type_part = strrchr($filepath, '.');
     $extension = substr($file_type_part, 1);
     $extension = strtolower($extension);
@@ -252,6 +253,7 @@ function directlink_add_instance(stdClass $directlink, mod_directlink_mod_form $
 
     $directlink_entry->introformat = 1;
     $directlink_entry->embedding = $directlink->embedding;
+    $directlink_entry->offer_download_link = $directlink->offer_download_link;
     // $directlink_entry->introformat = $directlink->introeditor['format'];
     $directlink_entry->ffc = $directlink->ffc;
     $directlink_entry->path_to_file = $directlink->path_to_file;
@@ -346,6 +348,7 @@ function directlink_update_instance(stdClass $directlink, mod_directlink_mod_for
     // $directlink_entry->introformat = 1;
     $directlink_entry->introformat = $directlink->introeditor['format'];
     $directlink_entry->embedding = $directlink->embedding;
+    $directlink_entry->offer_download_link = $directlink->offer_download_link;
     $directlink_entry->ffc = $directlink->ffc;
     $directlink_entry->path_to_file = $directlink->path_to_file;
     $directlink_entry->timemodified = $directlink->timemodified;

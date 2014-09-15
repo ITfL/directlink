@@ -144,7 +144,11 @@ $string['content_desc'] = 'Content of folder should be integrated.';
 $string['choose_ressource'] = 'Choose a ressource';
 
 $string['embed'] = 'Embed';
-$string['embed_desc'] = 'Tries to embed the file ';
+$string['embed_desc'] = 'Tries to embed a resource directly in the user\'s browser so that media files dont need to be downloaded first. (Supported formats: FLV, MP3, MP4, OGG)';
+
+$string['offer_download_link'] = 'Display download link';
+$string['offer_download_link_help'] = 'As we cannot ensure that every user device ist capable of playing each media format, the additional download link should be displayed in most cases.';
+$string['offer_download_link_desc'] = 'This setting will provide offer a download link for each embedded content element';
 
 $string['empty_folder'] = 'Folder is empty';
 
