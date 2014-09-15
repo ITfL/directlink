@@ -85,6 +85,7 @@ function xmldb_directlink_upgrade($oldversion)
         upgrade_mod_savepoint(true, 2012041801, 'directlink');
     }
 
+    // addded embedding checkbox field
     if ($oldversion < 2014080405) {
         // Define field embedding to be added to directlink.
         $table = new xmldb_table('directlink');
@@ -97,6 +98,22 @@ function xmldb_directlink_upgrade($oldversion)
 
         // Directlink savepoint reached.
         upgrade_mod_savepoint(true, 2014080405, 'directlink');
+    }
+
+    // added offer download link checkbox field
+    if ($oldversion < 2014091500) {
+
+        // Define field offer_download_link to be added to directlink.
+        $table = new xmldb_table('directlink');
+        $field = new xmldb_field('offer_download_link', XMLDB_TYPE_INTEGER, '1', null, null, null, '1', 'embedding');
+
+        // Conditionally launch add field offer_download_link.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Directlink savepoint reached.
+        upgrade_mod_savepoint(true, 2014091500, 'directlink');
     }
 
 
