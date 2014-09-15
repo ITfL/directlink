@@ -82,7 +82,6 @@ if (shared_file_exists($filename, $instance_dl_data->connection_id)) {
 
         session_write_close();
 
-
         if ($directlink->embedding && !$forcedownload && in_array($file_type, $DIRECTLINK_SUPPORTED_FORMATS)) {
             send_file($filename, $filename, 0, 0, false, true, file_type_to_mime_type($file_type));
         } else {

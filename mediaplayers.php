@@ -407,6 +407,7 @@ class directlink_core_media_player_link extends directlink_core_media_player {
         foreach ($urls as $url) {
 
             $url .= "&forcedownload=1";
+            $url = urldecode($url);
             $url = new moodle_url($url);
 
             $title = core_media::get_filename($url);
