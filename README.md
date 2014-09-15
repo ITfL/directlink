@@ -66,7 +66,7 @@ Mit dem Arbeitsmaterial Netzlaufwerk können Windows-Freigaben in einen Kurs int
 
 * **Rechte:**	www-data muss Besitzer des Verzeichnisses auf dem Moodle-Server sein, in den die Freigaben verfügbar gemacht (gemountet) werden.
 * **Default-User:**	Es muss einen Benutzer im Netzwerk geben, der lesend auf alle Windows-Freigaben zugreifen kann, um die Verbindung  zwischen dem jeweiligen Kurs und der Freigabe aufzubauen, aufrechtzuerhalten und wiederherzustellen. Benutzername und Passwort dieses Nutzers werden in den Einstellungen für das Netzlaufwerk in der Website-Administration in Moodle hinterlegt.
-* **Salt und Passwort:** Die Datei config.php.changeme muss angepass werden: Salt und Password sollten aus Sicherheitsgründen mit eigenen hexadezimalen Werten überschrieben werden. Außerdem muss die Datei in config.php umbenannt werden
+* **Salt und Passwort:** Die Datei config.php.changeme muss angepasst werden: Salt und Password sollten aus Sicherheitsgründen mit eigenen hexadezimalen Werten überschrieben werden. Außerdem muss die Datei in config.php umbenannt werden
 
 ###Einstellungen in der Administration
 
