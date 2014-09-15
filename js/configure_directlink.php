@@ -4,10 +4,7 @@ require_once(dirname(dirname(dirname(__FILE__))).'/../config.php');
 require_once(dirname(__FILE__).'/../lib.php');
 require_once(dirname(__FILE__).'/../locallib.php');
 
-
 header("Content-type: text/javascript");
-
-
 ?>
 
 /**
@@ -73,6 +70,19 @@ $('.connection_info').append(data);
 }
 });
 
+if ($('#id_embedding').is(":checked") == '1'){
+$('#fitem_id_offer_download_link').show();
+} else {
+$('#fitem_id_offer_download_link').hide();
+}
+
+$('#id_embedding').change(function() {
+if($(this).is(":checked")){
+$('#fitem_id_offer_download_link').show();
+} else {
+$('#fitem_id_offer_download_link').hide();
+}
+})
 
 
 oTable.fnSetColumnVis( 0, false );
