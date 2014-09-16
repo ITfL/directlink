@@ -201,7 +201,9 @@ if ($ffc == 'file' or $folder_embed == 1) {
         $PAGE->set_url('/mod/directlink/view.php', array('id' => $cm->id));
         if ($folder_embed) {
             // get last part of file name
-            $display_name = format_string(end(explode('/', $path)));
+            $path_parts = explode('/', $path);
+            $last_part = end($path_parts);
+            $display_name = format_string($last_part);
         } else {
             $display_name = format_string($directlink->name);
         }
