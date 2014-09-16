@@ -117,10 +117,6 @@ JS;
         if ($share_type == 'file') {
 
             $path_parts = pathinfo($path_to_file);
-            //debug($instance_data->path_to_file);
-            //debug($path_to_file);
-            //debug(encrypt($path_to_file));
-
 
             $extension = '';
 

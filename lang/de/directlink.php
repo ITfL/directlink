@@ -149,6 +149,7 @@ $string['offer_download_link'] = 'Downloadlink anzeigen';
 $string['offer_download_link_help'] = 'Es kann nicht sichergestellt werden, dass jedes Endgerät jedes verwendete Medienformat abspielen kann. Deshalb ist es in den meisten Fällen sinnvoll einen zusätzlichen Downloadlink anzubieten.';
 $string['offer_download_link_desc'] = 'Diese Einstellung führt dazu, dass bei jedem eingebetteten Inhalt ein zusätzlicher Download Link hinzugefügt wird';
 
+$string['eventfile_accessed'] = "Dateizugriff im Netzlaufwerk";
 
 $string['empty_folder'] = 'Verzeichnis ist leer';
 

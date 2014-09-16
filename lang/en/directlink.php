@@ -150,6 +150,8 @@ $string['offer_download_link'] = 'Display download link';
 $string['offer_download_link_help'] = 'As we cannot ensure that every user device ist capable of playing each media format, the additional download link should be displayed in most cases.';
 $string['offer_download_link_desc'] = 'This setting will provide offer a download link for each embedded content element';
 
+$string['eventfile_accessed'] = "File-Access in network drive";
+
 $string['empty_folder'] = 'Folder is empty';
 
 /**

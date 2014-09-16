@@ -125,8 +125,8 @@ function local_embed($url, $directlinkname, $filetype, $add_fallback_link = 'tru
     require_once("mediaplayers.php");
     global $PAGE;
 
-    $width = 0;
-    $height = 0;
+    $width = 480;
+    $height = 320;
     $options = array(
         core_media::OPTION_TRUSTED => true,
         core_media::OPTION_BLOCK => true,
@@ -137,7 +137,6 @@ function local_embed($url, $directlinkname, $filetype, $add_fallback_link = 'tru
     $placeholder = "<!--FALLBACK-->";
     $out = $placeholder;
 
-    //debug($url);
     if ($filetype == 'flv') {
         $url = rawurlencode($url);
     }
