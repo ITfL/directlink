@@ -162,7 +162,7 @@ function local_embed($url, $directlinkname, $filetype, $add_fallback_link = 'tru
     if ($add_fallback_link) {
         $text .= '<br/>';
         $fallback_player = new directlink_core_media_player_link();
-        $text .= $fallback_player->embed($supported, $name, $width, $height, $options, '');
+        $text .= $fallback_player->embed($supported, $name, $width, $height, $options, '', $filetype);
     }
 
     $out = str_replace($placeholder, $text, $out);

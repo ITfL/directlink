@@ -396,7 +396,8 @@ OET;
 
 
 class directlink_core_media_player_link extends directlink_core_media_player {
-    public function embed($urls, $name, $width, $height, $options, $mime) {
+    public function embed($urls, $name, $width, $height, $options, $mime, $filetype = '')
+    {
         // If link is turned off, return empty.
         if (!empty($options[core_media::OPTION_NO_LINK])) {
             return '';
@@ -406,8 +407,12 @@ class directlink_core_media_player_link extends directlink_core_media_player {
         $output = '';
         foreach ($urls as $url) {
 
+            if ($filetype == 'flv') {
+                $url = urldecode($url);
+            }
+
             $url .= "&forcedownload=1";
-            $url = urldecode($url);
+
             $url = new moodle_url($url);
 
             $title = core_media::get_filename($url);
