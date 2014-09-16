@@ -96,7 +96,6 @@ if ($check_results->valid) {
             } else {
                 $files[] = array('embeddable' => 0, 'name' => $index, 'token' => urlencode(encrypt($abs_path, true)));
             }
-
         }
 
         $folders = array();

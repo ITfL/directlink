@@ -149,8 +149,8 @@ function local_embed($url, $directlinkname, $filetype, $add_fallback_link = 'tru
         $player = new directlink_core_media_player_html5audio();
         $text = $player->embed($supported, $name, $width, $height, $options, 'audio/mp3');
     } elseif ($filetype == 'ogg') {
-        $player = new directlink_core_media_player_html5audio();
-        $text = $player->embed($supported, $name, $width, $height, $options, 'audio/ogg');
+        $player = new directlink_core_media_player_html5video();
+        $text = $player->embed($supported, $name, $width, $height, $options, 'video/ogg');
     } elseif ($filetype == 'mp4') {
         $player = new directlink_core_media_player_html5video();
         $text = $player->embed($supported, $name, $width, $height, $options, 'video/mp4');
@@ -176,6 +176,12 @@ function local_embed($url, $directlinkname, $filetype, $add_fallback_link = 'tru
 }
 
 $ffc = $directlink->ffc;
+
+$event = \mod_directlink\event\course_module_viewed::create(array(
+    'objectid' => $PAGE->cm->instance,
+    'context' => $PAGE->context,
+));
+$event->trigger();
 
 if ($ffc == 'file' or $folder_embed == 1) {
 
@@ -244,8 +250,6 @@ if ($ffc == 'file' or $folder_embed == 1) {
 
 } else if ($ffc == 'folder' || $ffc == 'content') {
     $directlink->path_to_file = decrypt($directlink->path_to_file);
-
-    add_to_log($course->id, 'directlink', 'view', "view.php?id={$cm->id}", "{$directlink->ffc}: {$directlink->path_to_file}", $id, $USER->id);
 
     if ($token != '') {
         $path_to_file = decrypt($token, true);

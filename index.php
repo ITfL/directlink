@@ -39,7 +39,11 @@ $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 require_course_login($course, true);
 $PAGE->set_pagelayout('incourse');
 
-add_to_log($course->id, 'directlink', 'view all', "index.php?id=$course->id", '');
+$event = \mod_directlink\event\course_module_instance_list_viewed::create(array(
+    'objectid' => $PAGE->course->id,
+    'context' => $PAGE->context,
+));
+$event->trigger();
 
 $strdirectlink = get_string('modulename', 'directlink');
 $strdirectlinks = get_string('modulenameplural', 'directlink');
@@ -61,15 +65,16 @@ if (!$directlinks = get_all_instances_in_course('directlink', $course)) {
     exit;
 }
 
-$usesections = course_format_uses_sections($course->format);
-if ($usesections) {
-    $sections = get_all_sections($course->id);
+$use_sections = course_format_uses_sections($course->format);
+if ($use_sections) {
+    $modinfo = get_fast_modinfo($id);
+    $sections = $modinfo->get_section_info_all();
 }
 
 $table = new html_table();
 $table->attributes['class'] = 'generaltable mod_index';
 
-if ($usesections) {
+if ($use_sections) {
     $table->head = array($strsectionname, $strname, $strintro);
     $table->align = array('center', 'left', 'left');
 } else {
@@ -81,7 +86,7 @@ $modinfo = get_fast_modinfo($course);
 $currentsection = '';
 foreach ($directlinks as $directlink) {
     $cm = $modinfo->cms[$directlink->coursemodule];
-    if ($usesections) {
+    if ($use_sections) {
         $printsection = '';
         if ($directlink->section !== $currentsection) {
             if ($directlink->section) {

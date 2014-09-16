@@ -30,7 +30,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$module->version = 2014091500; // The current module version (Date: YYYYMMDDXX)
+$module->version = 2014091602; // The current module version (Date: YYYYMMDDXX)
 
 
 // moodle version can be found at "Settings > Site administration > Notifications"

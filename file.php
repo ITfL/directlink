@@ -49,7 +49,8 @@ global $USER;
 $filename = decrypt($token, true);
 $file_type = get_filetype_from_file_path($filename);
 
-add_to_log($course->id, 'directlink', 'file', "file.php?id={$course->id}&instance={$instance}&token=", "{$filename}", $cm->id, $USER->id);
+/// TODO: Replace
+//add_to_log($course->id, 'directlink', 'file', "file.php?id={$course->id}&instance={$instance}&token=", "{$filename}", $cm->id, $USER->id);
 
 //debug($filename);
 //debug($file_type);
