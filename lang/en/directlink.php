@@ -144,11 +144,11 @@ $string['content_desc'] = 'Content of folder should be integrated.';
 $string['choose_ressource'] = 'Choose a ressource';
 
 $string['embed'] = 'Embed';
-$string['embed_desc'] = 'Tries to embed a resource directly in the user\'s browser so that media files dont need to be downloaded first. (Supported formats: FLV, MP3, MP4, OGG)';
+$string['embed_desc'] = 'Tries to display resources directly in the user\'s browser so that media files dont need to be downloaded first. (Supported formats: FLV, MP3, MP4, OGG)';
 
 $string['offer_download_link'] = 'Display download link';
-$string['offer_download_link_help'] = 'As we cannot ensure that every user device ist capable of playing each media format, the additional download link should be displayed in most cases.';
-$string['offer_download_link_desc'] = 'This setting will provide offer a download link for each embedded content element';
+$string['offer_download_link_help'] = 'It cannot be ensured that every user device ist capable of playing each media format, therefore the additional download link should be displayed in most cases.';
+$string['offer_download_link_desc'] = 'This setting will provide a download link for the embedded content element(s)';
 
 $string['eventfile_accessed'] = "File-Access in network drive";
 
