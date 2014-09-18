@@ -1,5 +1,13 @@
 <?php
-
+/*
+ * Event occuring when the class instance list is viewed (index.php)
+ *
+ * see:
+ * https://docs.moodle.org/dev/Migrating_logging_calls_in_plugins
+ * https://docs.moodle.org/dev/Logging_2
+ * https://docs.moodle.org/dev/Event_2
+ *
+ */
 namespace mod_directlink\event;
 
 defined('MOODLE_INTERNAL') || die();
