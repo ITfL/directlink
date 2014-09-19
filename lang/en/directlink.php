@@ -144,6 +144,7 @@ $string['content_desc'] = 'Content of folder should be integrated.';
 $string['choose_ressource'] = 'Choose a ressource';
 
 $string['embed'] = 'Embed';
+$string['embed_help'] = 'English embed help';
 $string['embed_desc'] = 'Tries to display resources directly in the user\'s browser so that media files dont need to be downloaded first. (Supported formats: FLV, MP3, MP4, OGG)';
 
 $string['offer_download_link'] = 'Display download link';
