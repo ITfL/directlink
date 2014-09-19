@@ -1,0 +1,13 @@
+<?php
+/**
+ * @package    mod
+ * @subpackage directlink
+ * @copyright  2012 onwards Michael Hamatschek and Hans-Christian Sperker {@link http://www.uni-bamberg.de/itfl-service}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+$directlink_config['password'] = '117757af2a21d3a5dd2e7af7f9d65aab3ea835720faecfba1380928c53f2';
+$directlink_config['salt'] = 'b0e693d60d72b1edb2c07d09efdc68554676c1d906d9166ed57455083aba';
+
+
+
