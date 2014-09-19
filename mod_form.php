@@ -675,6 +675,7 @@ HTML;
         		</div>');
         $mform->addElement('checkbox', 'embedding', get_string('embed', 'directlink'), get_string('embed_desc', 'directlink'), '0');
         $mform->addElement('checkbox', 'offer_download_link', get_string('offer_download_link', 'directlink'), get_string('offer_download_link_desc', 'directlink'), '0');
+        $mform->setDefault('offer_download_link', 1);
         $mform->addHelpButton('offer_download_link', 'offer_download_link', 'directlink');
 
         $mform->addElement('text', 'path_to_file', 'path_to_file', array('size' => '125'));
