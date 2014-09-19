@@ -6,8 +6,10 @@
 echo "==== Begin script ===="
 echo ""
 echo "installing necessary crypt package (libmcrypt4), cifs-utils and smbfs"
-sudo apt-get install libmcrypt4 cifs-utils smbfs
+sudo apt-get install libmcrypt4 cifs-utils smbfs php5-mcrypt
+sudo php5enmod mcrypt
 echo ""
+
 
 check_input(){
 path=$1

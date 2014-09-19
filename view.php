@@ -160,10 +160,9 @@ function local_embed($url, $directlinkname, $filetype, $add_fallback_link = 'tru
 
     // always add fallback Download Link:
     if ($add_fallback_link) {
-        $text .= '<br/><br/><div style="text-align: center">';
+        $text .= '<br/>';
         $fallback_player = new directlink_core_media_player_link();
         $text .= $fallback_player->embed($supported, $name, $width, $height, $options, '', $filetype);
-        $text .= '</div>';
     }
 
     $out = str_replace($placeholder, $text, $out);

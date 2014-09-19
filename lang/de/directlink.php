@@ -151,15 +151,15 @@ So müssen Mediendateien nicht erst auf das Endgerät der Benutzerin oder des Be
 
 * Inhaltsarten \'Verzeichnis\' und \'Inhalt\': Unterstützte Mediendateien innerhalb des gewählten Verzeichnisses (inklusive dessen Unterverzeichnisse) werden im Browser angezeigt, andere Dateiformate werden heruntergeladen.
 ';
-$string['embed_desc'] = 'Versucht die eingebundene Resource im Browser anzuzeigen. Dadurch muss sie nicht heruntergeladen werden. (Unterstützte Medienformate: FLV, MP3, MP4 und OGG)';
 
-$string['offer_download_link'] = 'Downloadlink anzeigen';
+
+$string['offer_download_link'] = 'Link zum Herunterladen anzeigen';
 $string['offer_download_link_help'] = 'Je nach Endgerät bzw. Konfiguration kann es sein, dass grundsätzlich unterstützte Medienformate bei der Nutzerin/dem Nutzer nicht angezeigt werden können.
 
 Diese Option zeigt bei eingebetteten Inhalten einen Link zum Herunterladen der Inhalte an. So wird sichergestellt, dass alle Nutzer/innen die Inhalte nutzen können.
 
 Deshalb sollte diese Option immer aktiv sein.';
-$string['offer_download_link_desc'] = 'Diese Einstellung führt dazu, dass bei eingebettetem Inhalt ein zusätzlicher Downloadlink angeboten wird.';
+
 
 $string['eventfile_accessed'] = "Dateizugriff im Netzlaufwerk";
 
